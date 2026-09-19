@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teams - CrickMate</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 16px;
+}
+
+.header-inner {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px 15px 40px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.top h2 {
+    margin: 0;
+}
+
+.add-btn {
+    background: #16a34a;
+    color: white;
+    padding: 11px 16px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.count {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.team-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 18px;
+}
+
+.team-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 25px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.short {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.city {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.players {
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 13px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.action {
+    flex: 1;
+    padding: 9px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    text-align: center;
+    text-decoration: none;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.empty {
+    background: white;
+    border-radius: 15px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #64748b;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+@media (max-width: 650px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top {
+        align-items: flex-start;
+    }
+
+    .add-btn {
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <h1>🏏 CrickMate</h1>
+        <p>Teams</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <a
+        id="backBtn"
+        href="#"
+        class="back"
+    >
+        ← Tournament Centre
+    </a>
+
+    <div class="top">
+
+        <div>
+            <h2>👥 Teams</h2>
+            <div
+                id="teamCount"
+                class="count"
+            >
+                Loading teams...
+            </div>
+        </div>
+
+        <a
+            id="addTeamBtn"
+            href="#"
+            class="add-btn"
+        >
+            + Add Team
+        </a>
+
+    </div>
+
+    <div
+        id="teamsContainer"
+        class="grid"
+    >
+        <div class="loading">
+            Loading teams...
+        </div>
+    </div>
+
+</main>
+
+<script
+    type="module"
+    src="./js/teams.js"
+></script>
+
+</body>
+</html>

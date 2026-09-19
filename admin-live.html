@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CrickMate - Live Camera</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+header p {
+    margin: 6px 0 0;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
+
+.card {
+    background: white;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 16px;
+    box-shadow: 0 3px 14px rgba(0,0,0,.08);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 11px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.btn-login {
+    background: #2563eb;
+}
+
+#startCameraBtn {
+    background: #2563eb;
+}
+
+#startLiveBtn {
+    background: #dc2626;
+}
+
+#stopLiveBtn {
+    background: #0f172a;
+    display: none;
+}
+
+.logout {
+    background: #475569;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.status {
+    text-align: center;
+    padding: 12px;
+    color: #64748b;
+}
+
+.status.live {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.status.error {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.camera-box {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #020617;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+#cameraPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #020617;
+}
+
+#cameraOff {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.teams {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#message {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    background: #dcfce7;
+    color: #166534;
+}
+
+#message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🎥 CrickMate Live Camera</h1>
+
+<p>Admin / Scorer Live Streaming</p>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div
+    class="card"
+    id="loginCard"
+>
+
+<h2>🔐 Admin / Scorer Login</h2>
+
+<label>Email</label>
+
+<input
+    type="email"
+    id="email"
+    placeholder="Enter admin email"
+    autocomplete="username"
+>
+
+<label>Password</label>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Enter password"
+    autocomplete="current-password"
+>
+
+<button
+    type="button"
+    id="loginBtn"
+    class="btn-login"
+>
+🔐 LOGIN
+</button>
+
+<div
+    id="loginStatus"
+    class="status"
+>
+Not logged in
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     USER
+===================================================== -->
+
+<div
+    class="card hidden"
+    id="userCard"
+>
+
+<h2>👤 Login Status</h2>
+
+<div id="loginMessage">
+Logged in
+</div>
+
+<p>
+Logged in as:
+<strong id="userEmail">-</strong>
+</p>
+
+<button
+    type="button"
+    id="logoutBtn"
+    class="logout"
+>
+🚪 LOGOUT
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     MATCH
+===================================================== -->
+
+<div
+    class="card hidden"
+    id="controlCard"
+>
+
+<h2>🏏 Select Match</h2>
+
+<label>Match</label>
+
+<select id="matchSelect">
+
+<option value="">
+⏳ Loading matches...
+</option>
+
+</select>
+
+
+<div
+    id="matchInfo"
+    class="teams hidden"
+>
+
+<span id="teamA">
+Team A
+</span>
+
+<span> VS </span>
+
+<span id="teamB">
+Team B
+</span>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CAMERA
+===================================================== -->
+
+<div
+    class="card hidden"
+    id="cameraCard"
+>
+
+<h2>📷 Camera</h2>
+
+
+<div class="camera-box">
+
+<video
+    id="cameraPreview"
+    autoplay
+    playsinline
+    muted
+></video>
+
+<div id="cameraOff">
+📷 Camera is off
+</div>
+
+</div>
+
+
+<div
+    id="status"
+    class="status"
+>
+Camera is not started
+</div>
+
+
+<button
+    type="button"
+    id="startCameraBtn"
+>
+📷 START CAMERA
+</button>
+
+
+<button
+    type="button"
+    id="startLiveBtn"
+    disabled
+>
+🎥 START LIVE
+</button>
+
+
+<button
+    type="button"
+    id="stopLiveBtn"
+>
+⛔ STOP LIVE
+</button>
+
+
+<div id="message"></div>
+
+
+<a
+    href="#"
+    id="watchLiveBtn"
+    class="back"
+>
+👀 Open Watch Live
+</a>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     IMPORTANT:
+     SIRF EK JAVASCRIPT FILE
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/live-camera.js"
+></script>
+
+</body>
+
+</html>

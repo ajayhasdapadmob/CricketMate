@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - CrickMate</title>
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/dashboard.css"
+    >
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside
+    id="sidebar"
+    class="sidebar"
+>
+
+    <div class="sidebar-logo">
+
+        <div class="sidebar-logo-icon">
+            🏏
+        </div>
+
+        <div>
+
+            <h2>CrickMate</h2>
+
+            <span>
+                Cricket Platform
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+
+        <a
+            href="./dashboard.html"
+            class="nav-item active"
+        >
+            🏠
+            <span>Dashboard</span>
+        </a>
+
+
+        <a
+            href="./tournaments.html"
+            class="nav-item"
+        >
+            🏆
+            <span>Tournaments</span>
+        </a>
+
+
+        <a
+            href="./live.html"
+            class="nav-item"
+        >
+            🔴
+            <span>Live Scores</span>
+        </a>
+
+
+        <!-- GO LIVE -->
+
+        <a
+            href="./admin-live.html"
+            class="nav-item"
+            id="sideGoLive"
+        >
+            🎥
+            <span>Go Live</span>
+        </a>
+
+
+        <a
+            href="./matches.html"
+            class="nav-item"
+        >
+            🏏
+            <span>Matches</span>
+        </a>
+
+
+        <a
+            href="./teams.html"
+            class="nav-item"
+        >
+            👥
+            <span>Teams</span>
+        </a>
+
+
+        <a
+            href="./players.html"
+            class="nav-item"
+        >
+            ⭐
+            <span>Players</span>
+        </a>
+
+
+        <a
+            href="./points.html"
+            class="nav-item"
+        >
+            📊
+            <span>Points Table</span>
+        </a>
+
+
+        <a
+            href="./rankings.html"
+            class="nav-item"
+        >
+            🥇
+            <span>Rankings</span>
+        </a>
+
+
+        <a
+            href="./player-stats.html"
+            class="nav-item"
+        >
+            📈
+            <span>Player Stats</span>
+        </a>
+
+
+        <a
+            href="./cricket-feed.html"
+            class="nav-item"
+        >
+            📰
+            <span>Cricket Feed</span>
+        </a>
+
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            type="button"
+        >
+            ☰
+        </button>
+
+
+        <div class="topbar-title">
+
+            <h1>Dashboard</h1>
+
+            <p>
+                Welcome to CrickMate
+            </p>
+
+        </div>
+
+
+        <div class="user-area">
+
+            <div
+                id="userAvatar"
+                class="user-avatar"
+            >
+                👤
+            </div>
+
+
+            <div class="user-info">
+
+                <strong id="userName">
+                    Loading...
+                </strong>
+
+                <span id="userEmail">
+                    Loading...
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         DASHBOARD PAGE
+    ================================================= -->
+
+    <section class="dashboard-page">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome-card">
+
+            <div>
+
+                <span class="welcome-label">
+                    🏏 CRICKMATE
+                </span>
+
+
+                <h2 id="welcomeTitle">
+                    Welcome back!
+                </h2>
+
+
+                <p>
+                    Manage your tournaments,
+                    teams, matches and cricket
+                    activities from one place.
+                </p>
+
+            </div>
+
+
+            <button
+                id="createTournamentBtn"
+                class="primary-btn"
+                type="button"
+            >
+                ➕ Create Tournament
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATS
+        ================================================= -->
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🏆
+                </div>
+
+                <div>
+
+                    <span>
+                        Tournaments
+                    </span>
+
+                    <strong id="tournamentCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔴
+                </div>
+
+                <div>
+
+                    <span>
+                        Live Matches
+                    </span>
+
+                    <strong id="liveMatchCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <span>
+                        Teams
+                    </span>
+
+                    <strong id="teamCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🏏
+                </div>
+
+                <div>
+
+                    <span>
+                        Matches
+                    </span>
+
+                    <strong id="matchCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             MY TOURNAMENTS
+        ================================================= -->
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    My Tournaments
+                </h2>
+
+                <p>
+                    Your created tournaments
+                </p>
+
+            </div>
+
+
+            <button
+                id="viewAllBtn"
+                class="outline-btn"
+                type="button"
+            >
+                View All
+            </button>
+
+        </div>
+
+
+        <div
+            id="tournamentContainer"
+            class="tournament-grid"
+        >
+
+            <div class="loading-card">
+
+                <div class="loader"></div>
+
+                <p>
+                    Loading tournaments...
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================= -->
+
+        <div class="quick-grid">
+
+    <!-- CREATE TOURNAMENT -->
+    <button
+        class="quick-card"
+        id="quickTournament"
+        type="button"
+    >
+        <span>🏆</span>
+
+        <strong>
+            Create Tournament
+        </strong>
+
+        <small>
+            Start a new tournament
+        </small>
+    </button>
+
+
+    <!-- CREATE TEAM -->
+    <button
+        class="quick-card"
+        id="quickTeam"
+        type="button"
+    >
+        <span>👥</span>
+
+        <strong>
+            Create Team
+        </strong>
+
+        <small>
+            Add your cricket team
+        </small>
+    </button>
+
+
+    <!-- CREATE MATCH -->
+    <button
+        class="quick-card"
+        id="quickMatch"
+        type="button"
+    >
+        <span>🏏</span>
+
+        <strong>
+            Create Match
+        </strong>
+
+        <small>
+            Schedule a match
+        </small>
+    </button>
+
+
+    <!-- GO LIVE -->
+    <button
+        class="quick-card"
+        id="quickGoLive"
+        type="button"
+    >
+        <span>🎥</span>
+
+        <strong>
+            Go Live
+        </strong>
+
+        <small>
+            Start camera live streaming
+        </small>
+    </button>
+
+</div>
+
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="dashboard-footer">
+
+        <strong>
+            🏏 CrickMate
+        </strong>
+
+        <span>
+            Your Cricket Companion
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     DASHBOARD JS
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/dashboard.js"
+></script>
+
+
+</body>
+
+</html>

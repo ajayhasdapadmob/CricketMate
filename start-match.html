@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Start Match - CrickMate</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #172033;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background: #0b1f3a;
+            color: white;
+            padding: 16px;
+        }
+
+        .header-inner {
+            max-width: 700px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #22c55e;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,.12);
+            padding: 9px 13px;
+            border-radius: 9px;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .container {
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        .title h1 {
+            margin: 0 0 7px;
+            font-size: 28px;
+        }
+
+        .title p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .section-title {
+            margin: 0 0 15px;
+            font-size: 18px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #d7dde6;
+            border-radius: 10px;
+
+            background: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #22c55e;
+        }
+
+        .teams {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* =========================
+           MATCH TYPE
+        ========================= */
+
+        .match-types {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+        .type-option {
+            border: 1px solid #d7dde6;
+            border-radius: 10px;
+            padding: 13px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .type-option input {
+            display: none;
+        }
+
+        .type-option.active {
+            background: #0b1f3a;
+            color: white;
+            border-color: #0b1f3a;
+        }
+
+        /* =========================
+           MATCH SUMMARY
+        ========================= */
+
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+        }
+
+        .summary-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+        }
+
+        .summary-row span:first-child {
+            color: #64748b;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .start-btn {
+            width: 100%;
+            border: none;
+
+            background: #22c55e;
+            color: white;
+
+            padding: 15px;
+            margin-top: 20px;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .start-btn:active {
+            transform: scale(.98);
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .message.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 550px) {
+
+            .teams {
+                grid-template-columns: 1fr;
+            }
+
+            .match-types {
+                grid-template-columns: 1fr;
+            }
+
+            .title h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Crick<span>Mate</span>
+        </div>
+
+        <a
+            href="dashboard.html"
+            class="back-btn"
+        >
+            ← Back
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <div class="title">
+
+        <h1>🏏 Start Match</h1>
+
+        <p>
+            Create a new cricket match
+            and start live scoring.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+
+        <h2 class="section-title">
+            Match Details
+        </h2>
+
+
+        <!-- Tournament -->
+
+        <div class="form-group">
+
+            <label>
+                Tournament
+            </label>
+
+            <select id="tournament">
+
+                <option value="">
+                    Select Tournament
+                </option>
+
+                <option value="APL-2026">
+                    APL 2026
+                </option>
+
+                <option value="CrickMate-Cup">
+                    CrickMate Cup
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Teams -->
+
+        <div class="teams">
+
+            <div class="form-group">
+
+                <label>
+                    Team A
+                </label>
+
+                <select id="teamA">
+
+                    <option value="">
+                        Select Team
+                    </option>
+
+                    <option value="AJAY WORRIES">
+                        AJAY WORRIES
+                    </option>
+
+                    <option value="SUNIL XI">
+                        SUNIL XI
+                    </option>
+
+                    <option value="HASDA XI">
+                        HASDA XI
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Team B
+                </label>
+
+                <select id="teamB">
+
+                    <option value="">
+                        Select Team
+                    </option>
+
+                    <option value="AJAY WORRIES">
+                        AJAY WORRIES
+                    </option>
+
+                    <option value="SUNIL XI">
+                        SUNIL XI
+                    </option>
+
+                    <option value="HASDA XI">
+                        HASDA XI
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Match Type -->
+
+        <div class="form-group">
+
+            <label>
+                Match Type
+            </label>
+
+            <div class="match-types">
+
+
+                <label
+                    class="type-option active"
+                    onclick="selectType(this)"
+                >
+
+                    <input
+                        type="radio"
+                        name="matchType"
+                        value="T20"
+                        checked
+                    >
+
+                    T20
+
+                </label>
+
+
+                <label
+                    class="type-option"
+                    onclick="selectType(this)"
+                >
+
+                    <input
+                        type="radio"
+                        name="matchType"
+                        value="T10"
+                    >
+
+                    T10
+
+                </label>
+
+
+                <label
+                    class="type-option"
+                    onclick="selectType(this)"
+                >
+
+                    <input
+                        type="radio"
+                        name="matchType"
+                        value="ODI"
+                    >
+
+                    ODI
+
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Overs -->
+
+        <div class="form-group">
+
+            <label>
+                Total Overs
+            </label>
+
+            <input
+                type="number"
+                id="overs"
+                value="20"
+                min="1"
+                max="50"
+            >
+
+        </div>
+
+
+        <!-- Date -->
+
+        <div class="teams">
+
+            <div class="form-group">
+
+                <label>
+                    Match Date
+                </label>
+
+                <input
+                    type="date"
+                    id="matchDate"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Match Time
+                </label>
+
+                <input
+                    type="time"
+                    id="matchTime"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- Toss -->
+
+        <div class="form-group">
+
+            <label>
+                Toss Winner
+            </label>
+
+            <select id="tossWinner">
+
+                <option value="">
+                    Select after toss
+                </option>
+
+                <option value="teamA">
+                    Team A
+                </option>
+
+                <option value="teamB">
+                    Team B
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Batting First
+            </label>
+
+            <select id="battingFirst">
+
+                <option value="">
+                    Select Team
+                </option>
+
+                <option value="teamA">
+                    Team A
+                </option>
+
+                <option value="teamB">
+                    Team B
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Summary -->
+
+        <div class="summary">
+
+            <div class="summary-title">
+                Match Summary
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Tournament
+                </span>
+
+                <strong id="summaryTournament">
+                    —
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Teams
+                </span>
+
+                <strong id="summaryTeams">
+                    —
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Format
+                </span>
+
+                <strong id="summaryFormat">
+                    T20
+                </strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>
+                    Overs
+                </span>
+
+                <strong id="summaryOvers">
+                    20
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Start -->
+
+        <button
+            class="start-btn"
+            onclick="startMatch()"
+        >
+
+            🏏 Start Match
+
+        </button>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+    /* =========================
+       MATCH TYPE
+    ========================= */
+
+    function selectType(element) {
+
+        document
+            .querySelectorAll(".type-option")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        element.classList.add("active");
+
+
+        const radio =
+            element.querySelector("input");
+
+        radio.checked = true;
+
+
+        document
+            .getElementById("overs")
+            .value =
+            radio.value === "T10"
+                ? 10
+                : radio.value === "ODI"
+                    ? 50
+                    : 20;
+
+
+        updateSummary();
+
+    }
+
+
+    /* =========================
+       SUMMARY
+    ========================= */
+
+    function updateSummary() {
+
+        const tournament =
+            document.getElementById(
+                "tournament"
+            ).selectedOptions[0].text;
+
+
+        const teamA =
+            document.getElementById(
+                "teamA"
+            ).selectedOptions[0].text;
+
+
+        const teamB =
+            document.getElementById(
+                "teamB"
+            ).selectedOptions[0].text;
+
+
+        const format =
+            document.querySelector(
+                'input[name="matchType"]:checked'
+            ).value;
+
+
+        const overs =
+            document.getElementById(
+                "overs"
+            ).value;
+
+
+        document.getElementById(
+            "summaryTournament"
+        ).textContent =
+            tournament === "Select Tournament"
+                ? "—"
+                : tournament;
+
+
+        if (
+            teamA === "Select Team" ||
+            teamB === "Select Team"
+        ) {
+
+            document.getElementById(
+                "summaryTeams"
+            ).textContent = "—";
+
+        } else {
+
+            document.getElementById(
+                "summaryTeams"
+            ).textContent =
+                teamA + " vs " + teamB;
+
+        }
+
+
+        document.getElementById(
+            "summaryFormat"
+        ).textContent = format;
+
+
+        document.getElementById(
+            "summaryOvers"
+        ).textContent = overs;
+
+    }
+
+
+    /* =========================
+       EVENTS
+    ========================= */
+
+    document
+        .getElementById("tournament")
+        .addEventListener(
+            "change",
+            updateSummary
+        );
+
+
+    document
+        .getElementById("teamA")
+        .addEventListener(
+            "change",
+            updateSummary
+        );
+
+
+    document
+        .getElementById("teamB")
+        .addEventListener(
+            "change",
+            updateSummary
+        );
+
+
+    document
+        .getElementById("overs")
+        .addEventListener(
+            "input",
+            updateSummary
+        );
+
+
+    /* =========================
+       START MATCH
+    ========================= */
+
+    function startMatch() {
+
+        const tournament =
+            document.getElementById(
+                "tournament"
+            ).value;
+
+
+        const teamA =
+            document.getElementById(
+                "teamA"
+            ).value;
+
+
+        const teamB =
+            document.getElementById(
+                "teamB"
+            ).value;
+
+
+        const overs =
+            Number(
+                document.getElementById(
+                    "overs"
+                ).value
+            );
+
+
+        const date =
+            document.getElementById(
+                "matchDate"
+            ).value;
+
+
+        const time =
+            document.getElementById(
+                "matchTime"
+            ).value;
+
+
+        const tossWinner =
+            document.getElementById(
+                "tossWinner"
+            ).value;
+
+
+        const battingFirst =
+            document.getElementById(
+                "battingFirst"
+            ).value;
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        /* =========================
+           VALIDATION
+        ========================= */
+
+        if (!tournament) {
+
+            showError(
+                "Please select a tournament."
+            );
+
+            return;
+
+        }
+
+
+        if (!teamA || !teamB) {
+
+            showError(
+                "Please select both teams."
+            );
+
+            return;
+
+        }
+
+
+        if (teamA === teamB) {
+
+            showError(
+                "Team A and Team B cannot be same."
+            );
+
+            return;
+
+        }
+
+
+        if (!overs || overs < 1) {
+
+            showError(
+                "Please enter valid overs."
+            );
+
+            return;
+
+        }
+
+
+        if (!date) {
+
+            showError(
+                "Please select match date."
+            );
+
+            return;
+
+        }
+
+
+        if (!time) {
+
+            showError(
+                "Please select match time."
+            );
+
+            return;
+
+        }
+
+
+        if (!tossWinner) {
+
+            showError(
+                "Please select toss winner."
+            );
+
+            return;
+
+        }
+
+
+        if (!battingFirst) {
+
+            showError(
+                "Please select batting first team."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           MATCH ID
+        ========================= */
+
+        const matchId =
+            "MATCH-" +
+            Date.now();
+
+
+        const matchData = {
+
+            matchId: matchId,
+
+            tournamentId: tournament,
+
+            teamA: teamA,
+
+            teamB: teamB,
+
+            matchType:
+                document.querySelector(
+                    'input[name="matchType"]:checked'
+                ).value,
+
+            overs: overs,
+
+            date: date,
+
+            time: time,
+
+            tossWinner: tossWinner,
+
+            battingFirst: battingFirst,
+
+            status: "LIVE",
+
+            scoreA: "0/0",
+
+            scoreB: "0/0",
+
+            currentInnings: 1,
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        /*
+         * Save temporarily.
+         * Later this same object will be
+         * saved directly to Firestore.
+         */
+
+        localStorage.setItem(
+            "crickmateCurrentMatch",
+            JSON.stringify(matchData)
+        );
+
+
+        message.className =
+            "message success";
+
+
+        message.style.display =
+            "block";
+
+
+        message.textContent =
+            "✅ Match created successfully!";
+
+
+        /*
+         * Open live scoring page
+         */
+
+        setTimeout(() => {
+
+            window.location.href =
+                "live-score.html?matchId=" +
+                encodeURIComponent(matchId) +
+                "&tournamentId=" +
+                encodeURIComponent(tournament);
+
+        }, 700);
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    function showError(text) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.className =
+            "message error";
+
+
+        message.style.display =
+            "block";
+
+
+        message.textContent =
+            "❌ " + text;
+
+    }
+
+
+    /* =========================
+       DEFAULT DATE/TIME
+    ========================= */
+
+    const now =
+        new Date();
+
+
+    document.getElementById(
+        "matchTime"
+    ).value =
+        now.toTimeString()
+            .slice(0, 5);
+
+
+    updateSummary();
+
+</script>
+
+
+</body>
+
+</html>

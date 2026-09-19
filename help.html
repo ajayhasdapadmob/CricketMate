@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Help & FAQs - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f4f4f4;
+    color: #202124;
+}
+
+.app {
+    width: 100%;
+    max-width: 720px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    background: white;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 70px;
+
+    background: #ed1b2f;
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 10;
+}
+
+.back-btn {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 28px;
+
+    margin-right: 15px;
+}
+
+.header h1 {
+    margin: 0;
+
+    font-size: 21px;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content {
+    padding: 22px 18px 40px;
+}
+
+.intro {
+    background: #fff5f6;
+
+    border-left: 4px solid #ed1b2f;
+
+    padding: 15px;
+
+    border-radius: 8px;
+
+    line-height: 1.6;
+
+    margin-bottom: 22px;
+}
+
+.faq {
+    border: 1px solid #e5e5e5;
+
+    border-radius: 10px;
+
+    margin-bottom: 12px;
+
+    overflow: hidden;
+
+    background: white;
+}
+
+.faq summary {
+    cursor: pointer;
+
+    padding: 17px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq summary::after {
+    content: "+";
+
+    float: right;
+
+    color: #ed1b2f;
+
+    font-size: 20px;
+}
+
+.faq[open] summary::after {
+    content: "−";
+}
+
+.answer {
+    padding: 0 17px 17px;
+
+    color: #666;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact-box {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #ed1b2f;
+
+    color: white;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.contact-box h2 {
+    margin-top: 0;
+}
+
+.contact-btn {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 11px 22px;
+
+    background: white;
+
+    color: #ed1b2f;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer {
+    padding: 20px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+
+    border-top: 1px solid #eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+
+<header class="header">
+
+    <a
+        href="./index.html"
+        class="back-btn"
+    >
+        ←
+    </a>
+
+    <h1>
+        Help / FAQs
+    </h1>
+
+</header>
+
+
+<main class="content">
+
+
+<div class="intro">
+
+    <strong>Welcome to CrickMate Help</strong>
+
+    <br>
+
+    Find answers to common questions about
+    matches, tournaments, live scores,
+    profiles and CrickMate PRO.
+
+</div>
+
+
+<details class="faq">
+
+    <summary>
+        What is CrickMate?
+    </summary>
+
+    <div class="answer">
+
+        CrickMate is a cricket companion platform
+        for managing matches, tournaments,
+        teams, players, live scores and cricket
+        activities.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        How can I start a match?
+    </summary>
+
+    <div class="answer">
+
+        Open the menu and select
+        <strong>Start a Match</strong>.
+        Enter the required match details
+        and follow the scoring instructions.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        How can I view live scores?
+    </summary>
+
+    <div class="answer">
+
+        Open <strong>Live Scores</strong>
+        from the home screen or menu.
+        Available live matches will be displayed
+        there.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        How can I create a tournament?
+    </summary>
+
+    <div class="answer">
+
+        Go to <strong>Tournaments / Series</strong>
+        and use the available tournament creation
+        option.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        What is CrickMate PRO?
+    </summary>
+
+    <div class="answer">
+
+        CrickMate PRO is a paid feature/service
+        designed to provide additional CrickMate
+        features.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        Is PRO ₹199 an automatic subscription?
+    </summary>
+
+    <div class="answer">
+
+        The CrickMate PRO option currently displayed
+        as <strong>₹199</strong> is not presented as
+        automatic autopay. Please check the PRO
+        service terms before making a payment.
+
+    </div>
+
+</details>
+
+
+<details class="faq">
+
+    <summary>
+        How can I contact CrickMate?
+    </summary>
+
+    <div class="answer">
+
+        You can use the Contact page from the
+        CrickMate menu.
+
+    </div>
+
+</details>
+
+
+<div class="contact-box">
+
+    <h2>
+        Still need help?
+    </h2>
+
+    <p>
+        Contact the CrickMate team for assistance.
+    </p>
+
+    <a
+        href="./contact.html"
+        class="contact-btn"
+    >
+        Contact Us
+    </a>
+
+</div>
+
+
+</main>
+
+
+<footer class="footer">
+
+    © 2026 CrickMate
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>

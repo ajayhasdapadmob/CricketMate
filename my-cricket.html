@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Cricket - CrickMate</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 18px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .container {
+            padding: 15px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px 10px;
+            color: #64748b;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px 10px;
+            color: #64748b;
+        }
+
+        .team-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .team-info {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .player {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .player:last-child {
+            border-bottom: none;
+        }
+
+        .player-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .player-name {
+            font-weight: 600;
+        }
+
+        .player-role {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .tournament {
+            font-size: 14px;
+            color: #475569;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>🏏 My Cricket</h1>
+
+        <p>Your teams, players and tournaments</p>
+
+    </div>
+
+
+    <main class="container">
+
+        <!-- STATUS -->
+
+        <div id="statusCard" class="card">
+
+            <div id="status" class="loading">
+
+                ⏳ Loading your cricket...
+
+            </div>
+
+        </div>
+
+
+        <!-- TOURNAMENT -->
+
+        <div
+            id="tournamentCard"
+            class="card"
+            style="display:none;"
+        >
+
+            <h2>🏆 Tournament</h2>
+
+            <div
+                id="tournamentName"
+                class="tournament"
+            ></div>
+
+        </div>
+
+
+        <!-- TEAM -->
+
+        <div
+            id="teamCard"
+            class="card"
+            style="display:none;"
+        >
+
+            <h2>👥 My Team</h2>
+
+            <div
+                id="teamName"
+                class="team-name"
+            ></div>
+
+            <div
+                id="teamInfo"
+                class="team-info"
+            ></div>
+
+        </div>
+
+
+        <!-- PLAYERS -->
+
+        <div
+            id="playersCard"
+            class="card"
+            style="display:none;"
+        >
+
+            <h2>🏏 Players</h2>
+
+            <div id="playersList"></div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- IMPORTANT -->
+
+    <script
+        type="module"
+        src="./js/my-cricket.js"
+    ></script>
+
+</body>
+
+</html>

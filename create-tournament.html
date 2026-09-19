@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Create Tournament - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px 20px;
+}
+
+.header-inner {
+    max-width: 850px;
+    margin: auto;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin-top: 5px;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 0 15px 40px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 20px rgba(15,23,42,0.05);
+}
+
+.card h1 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #16a34a;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 22px;
+    background: #16a34a;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.92;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+@media (max-width: 650px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            🏏 CrickMate
+        </div>
+
+        <div class="subtitle">
+            Create and manage your cricket tournament
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <a
+        href="./dashboard.html"
+        class="back"
+    >
+        ← Back to Dashboard
+    </a>
+
+
+    <div class="card">
+
+        <h1>
+            🏆 Create Tournament
+        </h1>
+
+        <p>
+            Create a new tournament and start managing
+            teams, players, matches and scores.
+        </p>
+
+
+        <form id="tournamentForm">
+
+            <div class="grid">
+
+
+                <!-- Tournament Name -->
+
+                <div class="full">
+
+                    <label for="tournamentName">
+                        Tournament Name *
+                    </label>
+
+                    <input
+                        id="tournamentName"
+                        type="text"
+                        placeholder="Example: CrickMate Premier League 2026"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Short Name -->
+
+                <div>
+
+                    <label for="shortName">
+                        Short Name
+                    </label>
+
+                    <input
+                        id="shortName"
+                        type="text"
+                        maxlength="12"
+                        placeholder="Example: CPL 2026"
+                    >
+
+                </div>
+
+
+                <!-- Tournament Type -->
+
+                <div>
+
+                    <label for="tournamentType">
+                        Tournament Type *
+                    </label>
+
+                    <select
+                        id="tournamentType"
+                        required
+                    >
+
+                        <option value="">
+                            Select Tournament Type
+                        </option>
+
+                        <option value="League">
+                            League
+                        </option>
+
+                        <option value="Knockout">
+                            Knockout
+                        </option>
+
+                        <option value="League + Knockout">
+                            League + Knockout
+                        </option>
+
+                        <option value="Friendly">
+                            Friendly
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Start Date -->
+
+                <div>
+
+                    <label for="startDate">
+                        Start Date *
+                    </label>
+
+                    <input
+                        id="startDate"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- End Date -->
+
+                <div>
+
+                    <label for="endDate">
+                        End Date *
+                    </label>
+
+                    <input
+                        id="endDate"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Venue -->
+
+                <div class="full">
+
+                    <label for="venue">
+                        Venue
+                    </label>
+
+                    <input
+                        id="venue"
+                        type="text"
+                        placeholder="Example: Padmabil Ground"
+                    >
+
+                </div>
+
+
+                <!-- City -->
+
+                <div>
+
+                    <label for="city">
+                        City / Area
+                    </label>
+
+                    <input
+                        id="city"
+                        type="text"
+                        placeholder="Example: Sonitpur"
+                    >
+
+                </div>
+
+
+                <!-- Organizer -->
+
+                <div>
+
+                    <label for="organizer">
+                        Organizer Name
+                    </label>
+
+                    <input
+                        id="organizer"
+                        type="text"
+                        placeholder="Organizer name"
+                    >
+
+                </div>
+
+
+                <!-- Description -->
+
+                <div class="full">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Tournament details..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                id="createBtn"
+                type="submit"
+            >
+                🏆 Create Tournament
+            </button>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/create-tournament.js"
+></script>
+
+
+</body>
+
+</html>

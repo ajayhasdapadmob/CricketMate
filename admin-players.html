@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Admin Players - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.stat {
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.stat-label {
+    margin-top: 4px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.search-box {
+    margin-top: 15px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+    font-size: 13px;
+}
+
+th {
+    background: #f8fafc;
+    font-weight: bold;
+}
+
+.player-number {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.captain {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: none;
+    font-size: 13px;
+}
+
+.message.show {
+    display: block;
+}
+
+.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: #64748b;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <h1>🏏 CrickMate Admin</h1>
+
+    <p>Players Management</p>
+
+</header>
+
+
+<div class="container">
+
+
+    <a
+        href="admin.html"
+        class="back"
+    >
+        ← Back to Admin
+    </a>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- FILTER -->
+
+    <div class="card">
+
+        <h2>
+            👥 Player Management
+        </h2>
+
+        <div class="filters">
+
+            <div>
+
+                <label>
+                    Tournament
+                </label>
+
+                <select id="tournamentSelect">
+
+                    <option value="">
+                        Select Tournament
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Team
+                </label>
+
+                <select id="teamSelect">
+
+                    <option value="">
+                        Select Team
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Search Player
+                </label>
+
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="Search player..."
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="card">
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div
+                    id="totalPlayers"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Total Players
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="captains"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Captains
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="batsmen"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Batsmen
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="bowlers"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Bowlers
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAYERS -->
+
+    <div class="card">
+
+        <h2>
+            🏏 Players List
+        </h2>
+
+
+        <div
+            id="teamInfo"
+            style="
+                color:#64748b;
+                font-size:13px;
+                margin-bottom:15px;
+            "
+        >
+            Select a tournament and team.
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Player
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="playersTable">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty"
+                        >
+                            Select a team to load players.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    type="module"
+    src="./js/admin-players.js"
+></script>
+
+</body>
+
+</html>

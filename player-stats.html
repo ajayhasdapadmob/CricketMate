@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+>
+
+<title>Player Statistics - CrickMate</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+color:#172033;
+}
+
+header{
+background:#0b1f3a;
+color:white;
+padding:15px;
+}
+
+.header{
+max-width:1100px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+font-size:23px;
+font-weight:bold;
+}
+
+.logo span{
+color:#22c55e;
+}
+
+.back{
+color:white;
+text-decoration:none;
+background:#ffffff18;
+padding:9px 13px;
+border-radius:8px;
+}
+
+main{
+max-width:1100px;
+margin:auto;
+padding:22px 15px 40px;
+}
+
+.page-title{
+margin-bottom:18px;
+}
+
+.page-title h1{
+margin:0 0 5px;
+font-size:28px;
+}
+
+.page-title p{
+margin:0;
+color:#64748b;
+}
+
+.filter{
+background:white;
+padding:16px;
+border-radius:14px;
+margin-bottom:18px;
+box-shadow:0 4px 15px #0001;
+}
+
+select{
+width:100%;
+max-width:400px;
+padding:11px;
+border:1px solid #d5dbe5;
+border-radius:9px;
+font-size:15px;
+background:white;
+}
+
+.card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 4px 15px #0001;
+}
+
+.card-header{
+padding:18px;
+border-bottom:1px solid #eee;
+}
+
+.card-header h2{
+margin:0;
+font-size:20px;
+}
+
+.table-box{
+width:100%;
+overflow-x:auto;
+}
+
+table{
+width:100%;
+min-width:850px;
+border-collapse:collapse;
+}
+
+th{
+background:#f8fafc;
+padding:13px;
+text-align:left;
+font-size:13px;
+color:#64748b;
+}
+
+td{
+padding:14px 13px;
+border-top:1px solid #eee;
+}
+
+.player{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.avatar{
+width:40px;
+height:40px;
+border-radius:50%;
+background:#e8edf3;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+}
+
+.player-name{
+font-weight:bold;
+}
+
+.team-name{
+font-size:12px;
+color:#64748b;
+margin-top:3px;
+}
+
+.rank{
+font-weight:bold;
+font-size:17px;
+}
+
+.number{
+font-weight:bold;
+}
+
+.loading{
+text-align:center;
+padding:40px;
+color:#64748b;
+}
+
+.empty{
+text-align:center;
+padding:40px 20px;
+color:#64748b;
+}
+
+.error{
+padding:20px;
+background:#fee2e2;
+color:#991b1b;
+border-radius:10px;
+}
+
+footer{
+background:#0b1f3a;
+color:white;
+text-align:center;
+padding:22px;
+}
+
+@media(max-width:600px){
+
+.page-title h1{
+font-size:24px;
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header">
+
+<div class="logo">
+Crick<span>Mate</span>
+</div>
+
+<a
+href="dashboard.html"
+class="back"
+>
+← Back
+</a>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<div class="page-title">
+
+<h1>
+📊 Player Statistics
+</h1>
+
+<p>
+Player Statistics & Rankings
+</p>
+
+</div>
+
+
+<div class="filter">
+
+<label>
+<strong>Select Tournament</strong>
+</label>
+
+<br><br>
+
+<select id="tournamentSelect">
+
+<option value="">
+Loading tournaments...
+</option>
+
+</select>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+🏏 Player Stats
+</h2>
+
+</div>
+
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Rank</th>
+
+<th>Player</th>
+
+<th>Team</th>
+
+<th>Matches</th>
+
+<th>Runs</th>
+
+<th>Wickets</th>
+
+<th>Balls</th>
+
+<th>Strike Rate</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="statsBody">
+
+<tr>
+
+<td
+colspan="8"
+class="loading"
+>
+
+Loading player statistics...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+© 2026 CrickMate
+
+<br>
+
+Player Statistics & Rankings
+
+</footer>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+collection,
+getDocs,
+doc,
+getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+console.log(
+"📊 CRICKMATE PLAYER STATS STARTED"
+);
+
+
+/* =========================================
+   URL
+========================================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+let tournamentId =
+params.get("tournamentId") ||
+params.get("id") ||
+localStorage.getItem("tournamentId") ||
+localStorage.getItem("currentTournamentId");
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const select =
+document.getElementById(
+"tournamentSelect"
+);
+
+const body =
+document.getElementById(
+"statsBody"
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+loadTournaments();
+
+
+/* =========================================
+   LOAD TOURNAMENTS
+========================================= */
+
+async function loadTournaments(){
+
+try{
+
+const tournamentsRef =
+collection(
+db,
+"tournaments"
+);
+
+
+const snapshot =
+await getDocs(
+tournamentsRef
+);
+
+
+select.innerHTML =
+`
+<option value="">
+Select Tournament
+</option>
+`;
+
+
+snapshot.forEach(
+docSnap=>{
+
+const data =
+docSnap.data();
+
+
+const name =
+data.name ||
+data.tournamentName ||
+data.title ||
+"Unnamed Tournament";
+
+
+select.innerHTML += `
+
+<option value="${docSnap.id}">
+${escapeHtml(name)}
+</option>
+
+`;
+
+});
+
+
+if(tournamentId){
+
+select.value =
+tournamentId;
+
+}
+
+
+if(
+select.value
+){
+
+tournamentId =
+select.value;
+
+localStorage.setItem(
+"tournamentId",
+tournamentId
+);
+
+loadPlayerStats();
+
+}
+
+
+}catch(error){
+
+console.error(
+"❌ Tournament error:",
+error
+);
+
+select.innerHTML =
+`
+<option>
+Unable to load tournaments
+</option>
+`;
+
+}
+
+}
+
+
+/* =========================================
+   TOURNAMENT CHANGE
+========================================= */
+
+select.addEventListener(
+"change",
+function(){
+
+tournamentId =
+this.value;
+
+
+if(!tournamentId){
+
+body.innerHTML =
+`
+<tr>
+<td
+colspan="8"
+class="empty"
+>
+Please select a tournament.
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+
+localStorage.setItem(
+"tournamentId",
+tournamentId
+);
+
+
+loadPlayerStats();
+
+});
+
+
+/* =========================================
+   LOAD PLAYER STATS
+========================================= */
+
+async function loadPlayerStats(){
+
+if(!tournamentId){
+
+return;
+
+}
+
+
+body.innerHTML =
+`
+<tr>
+<td
+colspan="8"
+class="loading"
+>
+Loading player statistics...
+</td>
+</tr>
+`;
+
+
+try{
+
+/*
+================================================
+GET ALL TEAMS
+================================================
+*/
+
+const teamsRef =
+collection(
+db,
+"tournaments",
+tournamentId,
+"teams"
+);
+
+
+const teamsSnap =
+await getDocs(
+teamsRef
+);
+
+
+console.log(
+"👥 TEAMS:",
+teamsSnap.size
+);
+
+
+let players = [];
+
+
+/*
+================================================
+GET PLAYERS FROM EVERY TEAM
+================================================
+*/
+
+for(
+const teamDoc of teamsSnap.docs
+){
+
+const team =
+teamDoc.data();
+
+
+const teamName =
+team.teamName ||
+team.name ||
+"Unknown Team";
+
+
+const playersRef =
+collection(
+db,
+"tournaments",
+tournamentId,
+"teams",
+teamDoc.id,
+"players"
+);
+
+
+const playersSnap =
+await getDocs(
+playersRef
+);
+
+
+console.log(
+"🏏",
+teamName,
+"PLAYERS:",
+playersSnap.size
+);
+
+
+/*
+==============================================
+SUBCOLLECTION PLAYERS
+==============================================
+*/
+
+playersSnap.forEach(
+playerDoc=>{
+
+const player =
+playerDoc.data();
+
+
+const playerName =
+player.playerName ||
+player.name ||
+player.fullName ||
+player.player ||
+player.playerFullName;
+
+
+if(!playerName){
+
+return;
+
+}
+
+
+players.push({
+
+id:
+playerDoc.id,
+
+name:
+playerName,
+
+team:
+teamName,
+
+teamId:
+teamDoc.id,
+
+matches:
+Number(
+player.matches || 0
+),
+
+runs:
+Number(
+player.runs || 0
+),
+
+wickets:
+Number(
+player.wickets || 0
+),
+
+balls:
+Number(
+player.balls ||
+player.ballsFaced ||
+0
+),
+
+strikeRate:
+Number(
+player.strikeRate ||
+0
+)
+
+});
+
+});
+
+
+/*
+==============================================
+OLD PLAYER FIELDS
+==============================================
+*/
+
+const oldPlayers = [];
+
+
+for(
+let i=1;
+i<=15;
+i++
+){
+
+const value =
+team[`player${i}`];
+
+
+if(
+value &&
+String(value).trim()
+){
+
+oldPlayers.push({
+
+name:
+String(value).trim(),
+
+team:
+teamName,
+
+teamId:
+teamDoc.id,
+
+matches:0,
+
+runs:0,
+
+wickets:0,
+
+balls:0,
+
+strikeRate:0
+
+});
+
+}
+
+}
+
+
+/*
+==============================================
+ADD OLD PLAYERS ONLY IF NOT ALREADY THERE
+==============================================
+*/
+
+oldPlayers.forEach(
+oldPlayer=>{
+
+const exists =
+players.some(
+p=>
+p.name
+.toLowerCase()
+===
+oldPlayer.name
+.toLowerCase()
+&&
+p.teamId
+===
+oldPlayer.teamId
+);
+
+
+if(!exists){
+
+players.push(
+oldPlayer
+);
+
+}
+
+});
+
+}
+
+
+/*
+================================================
+SORT BY RUNS
+================================================
+*/
+
+players.sort(
+(a,b)=>
+b.runs-a.runs
+);
+
+
+/*
+================================================
+DISPLAY
+================================================
+*/
+
+renderPlayers(
+players
+);
+
+
+}catch(error){
+
+console.error(
+"❌ PLAYER STATS ERROR:",
+error
+);
+
+
+body.innerHTML =
+`
+<tr>
+
+<td
+colspan="8"
+class="error"
+>
+
+❌ Unable to load player statistics.
+
+<br><br>
+
+${escapeHtml(
+error.message ||
+"Unknown error"
+)}
+
+</td>
+
+</tr>
+`;
+
+}
+
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderPlayers(
+players
+){
+
+body.innerHTML="";
+
+
+if(
+players.length===0
+){
+
+body.innerHTML =
+`
+<tr>
+
+<td
+colspan="8"
+class="empty"
+>
+
+🏏 No player statistics available yet.
+
+<br><br>
+
+Player statistics will appear when
+player-level scoring data is available.
+
+</td>
+
+</tr>
+`;
+
+return;
+
+}
+
+
+players.forEach(
+(player,index)=>{
+
+
+let strikeRate =
+player.strikeRate;
+
+
+if(
+!strikeRate &&
+player.balls > 0
+){
+
+strikeRate =
+(
+player.runs /
+player.balls
+)*100;
+
+}
+
+
+body.innerHTML += `
+
+<tr>
+
+<td class="rank">
+${index+1}
+</td>
+
+
+<td>
+
+<div class="player">
+
+<div class="avatar">
+🏏
+</div>
+
+<div>
+
+<div class="player-name">
+${escapeHtml(
+player.name
+)}
+</div>
+
+</div>
+
+</div>
+
+</td>
+
+
+<td>
+
+<div class="team-name">
+
+${escapeHtml(
+player.team
+)}
+
+</div>
+
+</td>
+
+
+<td>
+${player.matches}
+</td>
+
+
+<td class="number">
+${player.runs}
+</td>
+
+
+<td class="number">
+${player.wickets}
+</td>
+
+
+<td>
+${player.balls}
+</td>
+
+
+<td>
+${strikeRate
+? strikeRate.toFixed(2)
+: "0.00"}
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* =========================================
+   ESCAPE
+========================================= */
+
+function escapeHtml(
+value
+){
+
+if(
+value === null ||
+value === undefined
+){
+
+return "";
+
+}
+
+
+return String(value)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+console.log(
+"✅ PLAYER STATS READY"
+);
+
+</script>
+
+</body>
+
+</html>

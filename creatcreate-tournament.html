@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Tournament - CrickMate</title>
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/dashboard.css"
+    >
+
+    <style>
+
+        .create-page {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            padding: 25px;
+
+        }
+
+
+        .form-card {
+
+            background: white;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 15px;
+
+            padding: 28px;
+
+        }
+
+
+        .page-heading {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .page-heading h1 {
+
+            margin: 0 0 7px;
+
+            font-size: 27px;
+
+        }
+
+
+        .page-heading p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap: 18px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .form-group label {
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #0f172a;
+
+        }
+
+
+        .form-help {
+
+            margin-top: 5px;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+
+        }
+
+
+        .form-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid #e2e8f0;
+
+        }
+
+
+        .cancel-btn {
+
+            padding: 12px 20px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            background: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .save-btn {
+
+            padding: 12px 22px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #22c55e;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .save-btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .form-message {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+        }
+
+
+        .form-message.success {
+
+            display: block;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .form-message.error {
+
+            display: block;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .create-page {
+
+                padding: 15px;
+
+            }
+
+
+            .form-card {
+
+                padding: 20px;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .form-group.full {
+
+                grid-column:
+                    auto;
+
+            }
+
+
+            .form-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .cancel-btn,
+            .save-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="sidebar-logo-icon">
+            🏏
+        </div>
+
+        <div>
+
+            <h2>
+                CrickMate
+            </h2>
+
+            <span>
+                Cricket Platform
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a
+            href="./dashboard.html"
+            class="nav-item"
+        >
+            🏠
+            <span>
+                Dashboard
+            </span>
+        </a>
+
+
+        <a
+            href="./tournaments.html"
+            class="nav-item"
+        >
+            🏆
+            <span>
+                Tournaments
+            </span>
+        </a>
+
+
+        <a
+            href="./live.html"
+            class="nav-item"
+        >
+            🔴
+            <span>
+                Live Scores
+            </span>
+        </a>
+
+
+        <a
+            href="./teams.html"
+            class="nav-item"
+        >
+            👥
+            <span>
+                Teams
+            </span>
+        </a>
+
+
+        <a
+            href="./players.html"
+            class="nav-item"
+        >
+            ⭐
+            <span>
+                Players
+            </span>
+        </a>
+
+
+        <a
+            href="./points.html"
+            class="nav-item"
+        >
+            📊
+            <span>
+                Points Table
+            </span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+
+    <header class="topbar">
+
+        <button
+            id="menuBtn"
+            class="menu-btn"
+        >
+            ☰
+        </button>
+
+
+        <div class="topbar-title">
+
+            <h1>
+                Create Tournament
+            </h1>
+
+            <p>
+                Set up your cricket tournament
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <section class="create-page">
+
+
+        <div class="page-heading">
+
+            <h1>
+                🏆 Create New Tournament
+            </h1>
+
+            <p>
+                Enter the tournament details below.
+            </p>
+
+        </div>
+
+
+        <div class="form-card">
+
+
+            <form id="tournamentForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group full">
+
+                        <label for="tournamentName">
+                            Tournament Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="tournamentName"
+                            placeholder="Example: CrickMate Premier League 2026"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- FORMAT -->
+
+                    <div class="form-group">
+
+                        <label for="format">
+                            Tournament Format *
+                        </label>
+
+                        <select
+                            id="format"
+                            required
+                        >
+
+                            <option value="">
+                                Select Format
+                            </option>
+
+                            <option value="League">
+                                League
+                            </option>
+
+                            <option value="Knockout">
+                                Knockout
+                            </option>
+
+                            <option value="League + Knockout">
+                                League + Knockout
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- BALL FORMAT -->
+
+                    <div class="form-group">
+
+                        <label for="matchType">
+                            Match Type *
+                        </label>
+
+                        <select
+                            id="matchType"
+                            required
+                        >
+
+                            <option value="">
+                                Select Match Type
+                            </option>
+
+                            <option value="T10">
+                                T10
+                            </option>
+
+                            <option value="T20">
+                                T20
+                            </option>
+
+                            <option value="ODI">
+                                ODI
+                            </option>
+
+                            <option value="Test">
+                                Test
+                            </option>
+
+                            <option value="Custom">
+                                Custom
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEAMS -->
+
+                    <div class="form-group">
+
+                        <label for="teamCount">
+                            Number of Teams *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="teamCount"
+                            min="2"
+                            max="256"
+                            value="2"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- OVERS -->
+
+                    <div class="form-group">
+
+                        <label for="overs">
+                            Overs Per Innings *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="overs"
+                            min="1"
+                            max="90"
+                            value="20"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- START DATE -->
+
+                    <div class="form-group">
+
+                        <label for="startDate">
+                            Start Date *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="startDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- END DATE -->
+
+                    <div class="form-group">
+
+                        <label for="endDate">
+                            End Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="endDate"
+                        >
+
+                    </div>
+
+
+                    <!-- VENUE -->
+
+                    <div class="form-group full">
+
+                        <label for="venue">
+                            Main Venue
+                        </label>
+
+                        <input
+                            type="text"
+                            id="venue"
+                            placeholder="Enter ground / stadium name"
+                            maxlength="150"
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            placeholder="Enter city"
+                            maxlength="80"
+                        >
+
+                    </div>
+
+
+                    <!-- ORGANIZER -->
+
+                    <div class="form-group">
+
+                        <label for="organizer">
+                            Organizer Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="organizer"
+                            placeholder="Tournament organizer"
+                            maxlength="100"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label for="description">
+                            Tournament Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Write something about your tournament..."
+                            maxlength="1000"
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    id="formMessage"
+                    class="form-message"
+                ></div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        id="cancelBtn"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        id="saveBtn"
+                        class="save-btn"
+                    >
+                        🏆 Create Tournament
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/create-tournament.js"
+></script>
+
+</body>
+
+</html>

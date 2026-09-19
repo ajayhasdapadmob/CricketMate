@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CrickMate - Live Score</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.match-title {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.teams {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.team {
+    text-align: center;
+    font-weight: bold;
+}
+
+.score {
+    font-size: 24px;
+    margin-top: 6px;
+}
+
+.vs {
+    color: #64748b;
+    font-weight: bold;
+}
+
+.status {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.info {
+    background: #eff6ff;
+    color: #1e40af;
+    padding: 12px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PLAYER SELECTION
+===================================================== */
+
+.player-box {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.player-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.player-box select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.player-box select:focus {
+    outline: 2px solid #2563eb;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 13px 5px;
+    background: #0f172a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+button.wicket {
+    background: #dc2626;
+}
+
+button.undo {
+    background: #64748b;
+}
+
+button.complete {
+    background: #16a34a;
+    grid-column: span 4;
+}
+
+button.second-innings {
+    background: #2563eb;
+    grid-column: span 4;
+}
+
+
+/* =====================================================
+   OVER
+===================================================== */
+
+.over-box {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 9px;
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:500px) {
+
+    .buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    button.complete,
+    button.second-innings {
+        grid-column: span 3;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>🏏 CrickMate</h1>
+
+    <p>
+        Live Score & Ball-by-Ball Commentary
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- =================================================
+         BACK
+    ================================================== -->
+
+    <a
+        id="backBtn"
+        href="#"
+        class="back"
+    >
+        ← Back
+    </a>
+
+
+    <!-- =================================================
+         MESSAGE
+    ================================================== -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- =================================================
+         LOADING
+    ================================================== -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        🔄 Loading match...
+    </div>
+
+
+    <!-- =================================================
+         SCORE PAGE
+    ================================================== -->
+
+    <div
+        id="scorePage"
+        style="display:none;"
+    >
+
+
+        <!-- =================================================
+             MATCH CARD
+        ================================================== -->
+
+        <div class="card">
+
+            <div
+                id="matchTitle"
+                class="match-title"
+            >
+                Match
+            </div>
+
+
+            <div class="teams">
+
+
+                <!-- TEAM 1 -->
+
+                <div class="team">
+
+                    <div id="team1Name">
+                        Team 1
+                    </div>
+
+                    <div
+                        id="scoreA"
+                        class="score"
+                    >
+                        0/0
+                    </div>
+
+                </div>
+
+
+                <div class="vs">
+                    VS
+                </div>
+
+
+                <!-- TEAM 2 -->
+
+                <div class="team">
+
+                    <div id="team2Name">
+                        Team 2
+                    </div>
+
+                    <div
+                        id="scoreB"
+                        class="score"
+                    >
+                        0/0
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div
+                id="matchStatus"
+                class="status"
+            >
+                Scheduled
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="result"
+                class="info"
+                style="margin-top:12px;"
+            >
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SCORE CONTROLS
+        ================================================== -->
+
+        <div
+    class="card"
+    id="scoreControlsCard"
+>
+
+    <h3>
+        🏏 Score Controls
+    </h3>
+
+
+            <!-- INNINGS -->
+
+            <div
+                id="inningsInfo"
+                class="info"
+            >
+                Innings 1
+            </div>
+
+
+            <!-- =================================================
+                 PLAYER SELECTION
+            ================================================== -->
+
+            <div
+                id="playerSelection"
+                class="player-box"
+            >
+
+
+                <!-- STRIKER -->
+
+                <label for="striker">
+                    🏏 Striker
+                </label>
+
+                <select id="striker">
+
+                    <option value="">
+                        Select Striker
+                    </option>
+
+                </select>
+
+
+                <!-- NON STRIKER -->
+
+                <label for="nonStriker">
+                    🏏 Non-Striker
+                </label>
+
+                <select id="nonStriker">
+
+                    <option value="">
+                        Select Non-Striker
+                    </option>
+
+                </select>
+
+
+                <!-- BOWLER -->
+
+                <label for="bowler">
+                    🎯 Bowler
+                </label>
+
+                <select id="bowler">
+
+                    <option value="">
+                        Select Bowler
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 RUN BUTTONS
+            ================================================== -->
+
+            <div class="buttons">
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(0)"
+                >
+                    0
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(1)"
+                >
+                    1
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(2)"
+                >
+                    2
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(3)"
+                >
+                    3
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(4)"
+                >
+                    4
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="addRuns(6)"
+                >
+                    6
+                </button>
+
+
+                <button
+                    type="button"
+                    class="wicket"
+                    onclick="addWicket()"
+                >
+                    WICKET
+                </button>
+
+
+                <button
+                    type="button"
+                    class="undo"
+                    onclick="undoBall()"
+                >
+                    ↩ Undo
+                </button>
+
+
+                <!-- =================================================
+                     SECOND INNINGS
+                ================================================== -->
+
+                <button
+                    type="button"
+                    id="secondInningsBtn"
+                    class="second-innings"
+                    onclick="startSecondInnings()"
+                >
+                    🔄 Start Second Innings
+                </button>
+
+
+                <!-- =================================================
+                     COMPLETE MATCH
+                ================================================== -->
+
+                <button
+                    type="button"
+                    class="complete"
+                    onclick="completeMatch()"
+                >
+                    🏆 Complete Match
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CURRENT OVER
+        ================================================== -->
+
+        <div class="card">
+
+            <h3>
+                📝 Current Over
+            </h3>
+
+
+            <div
+                id="currentOver"
+                class="over-box"
+            >
+                No balls yet.
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             COMMENTARY
+        ================================================== -->
+
+        <div class="card">
+
+            <h3>
+                📢 Commentary
+            </h3>
+
+
+            <div id="commentary">
+                No commentary yet.
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+</main>
+
+<!-- =====================================================
+     LIVE SCORE JAVASCRIPT
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/live-score.js"
+></script>
+
+
+</body>
+
+</html>

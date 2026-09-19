@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CrickMate Store</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .store-header {
+            background: #0b1f3a;
+            color: white;
+            padding: 18px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #22c55e;
+        }
+
+        .cart-btn {
+            border: none;
+            background: #22c55e;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .store-hero {
+            padding: 30px 16px;
+            background: linear-gradient(
+                135deg,
+                #0b1f3a,
+                #123c69
+            );
+            color: white;
+        }
+
+        .store-hero h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        .store-hero p {
+            margin: 0;
+            color: #dbeafe;
+        }
+
+        /* ==============================
+           SEARCH
+        ============================== */
+
+        .store-tools {
+            padding: 18px 16px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d5dbe5;
+            border-radius: 12px;
+            outline: none;
+            font-size: 16px;
+            background: white;
+        }
+
+        .categories {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin-top: 14px;
+            padding-bottom: 5px;
+        }
+
+        .category-btn {
+            white-space: nowrap;
+            border: none;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #dbe1ea;
+        }
+
+        .category-btn.active {
+            background: #0b1f3a;
+            color: white;
+        }
+
+        /* ==============================
+           PRODUCTS
+        ============================== */
+
+        .products {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 16px 30px;
+
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(170px, 1fr));
+
+            gap: 16px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,.07);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 170px;
+            background: #eef2f7;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 60px;
+        }
+
+        .product-info {
+            padding: 14px;
+        }
+
+        .product-name {
+            margin: 0 0 7px;
+            font-size: 17px;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 19px;
+            font-weight: bold;
+            color: #0b1f3a;
+        }
+
+        .add-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 11px;
+            border: none;
+            border-radius: 10px;
+            background: #22c55e;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-btn:active {
+            transform: scale(.98);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            display: none;
+        }
+
+        /* ==============================
+           CART
+        ============================== */
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(380px, 100%);
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            box-shadow: -5px 0 20px rgba(0,0,0,.2);
+            transition: .3s;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cart-panel.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .close-cart {
+            border: none;
+            background: #ef4444;
+            color: white;
+            border-radius: 8px;
+            padding: 7px 10px;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #0b1f3a;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0b1f3a;
+            color: white;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     HEADER
+================================= -->
+
+<header class="store-header">
+
+    <div class="header-row">
+
+        <div class="logo">
+            Crick<span>Mate</span>
+        </div>
+
+        <button
+            class="cart-btn"
+            onclick="openCart()"
+        >
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =================================
+     HERO
+================================= -->
+
+<section class="store-hero">
+
+    <h1>🏏 CrickMate Store</h1>
+
+    <p>
+        Cricket equipment, jerseys and accessories
+        for players and fans.
+    </p>
+
+</section>
+
+
+<!-- =================================
+     SEARCH + CATEGORY
+================================= -->
+
+<section class="store-tools">
+
+    <input
+        type="search"
+        id="searchInput"
+        class="search-box"
+        placeholder="🔍 Search cricket products..."
+    >
+
+    <div class="categories">
+
+        <button
+            class="category-btn active"
+            onclick="filterCategory('All', this)"
+        >
+            All
+        </button>
+
+        <button
+            class="category-btn"
+            onclick="filterCategory('Bat', this)"
+        >
+            🏏 Bats
+        </button>
+
+        <button
+            class="category-btn"
+            onclick="filterCategory('Ball', this)"
+        >
+            🔴 Balls
+        </button>
+
+        <button
+            class="category-btn"
+            onclick="filterCategory('Jersey', this)"
+        >
+            👕 Jerseys
+        </button>
+
+        <button
+            class="category-btn"
+            onclick="filterCategory('Gloves', this)"
+        >
+            🧤 Gloves
+        </button>
+
+        <button
+            class="category-btn"
+            onclick="filterCategory('Accessories', this)"
+        >
+            🎒 Accessories
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     PRODUCTS
+================================= -->
+
+<main>
+
+    <section
+        id="products"
+        class="products"
+    ></section>
+
+    <div
+        id="emptyMessage"
+        class="empty"
+    >
+        No products found.
+    </div>
+
+</main>
+
+
+<!-- =================================
+     CART PANEL
+================================= -->
+
+<div
+    id="cartPanel"
+    class="cart-panel"
+>
+
+    <div class="cart-header">
+
+        <h2>🛒 Your Cart</h2>
+
+        <button
+            class="close-cart"
+            onclick="closeCart()"
+        >
+            ✕
+        </button>
+
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-total">
+
+        Total:
+        ₹<span id="cartTotal">0</span>
+
+    </div>
+
+    <button
+        class="checkout-btn"
+        onclick="checkout()"
+    >
+        Proceed to Checkout
+    </button>
+
+</div>
+
+
+<!-- =================================
+     FOOTER
+================================= -->
+
+<footer>
+
+    © 2026 CrickMate
+
+    <br>
+
+    Cricket. Tournaments. Community.
+
+</footer>
+
+
+<script>
+
+    /* =================================
+       PRODUCTS
+    ================================= */
+
+    const products = [
+
+        {
+            id: 1,
+            name: "Cricket Bat",
+            category: "Bat",
+            price: 2499,
+            icon: "🏏"
+        },
+
+        {
+            id: 2,
+            name: "Leather Cricket Ball",
+            category: "Ball",
+            price: 699,
+            icon: "🔴"
+        },
+
+        {
+            id: 3,
+            name: "CrickMate Jersey",
+            category: "Jersey",
+            price: 799,
+            icon: "👕"
+        },
+
+        {
+            id: 4,
+            name: "Batting Gloves",
+            category: "Gloves",
+            price: 999,
+            icon: "🧤"
+        },
+
+        {
+            id: 5,
+            name: "Cricket Kit Bag",
+            category: "Accessories",
+            price: 1499,
+            icon: "🎒"
+        },
+
+        {
+            id: 6,
+            name: "Practice Tennis Ball",
+            category: "Ball",
+            price: 199,
+            icon: "🟢"
+        },
+
+        {
+            id: 7,
+            name: "CrickMate Team Jersey",
+            category: "Jersey",
+            price: 899,
+            icon: "👕"
+        },
+
+        {
+            id: 8,
+            name: "Cricket Cap",
+            category: "Accessories",
+            price: 399,
+            icon: "🧢"
+        }
+
+    ];
+
+
+    let cart = [];
+
+    let currentCategory = "All";
+
+
+    /* =================================
+       LOAD PRODUCTS
+    ================================= */
+
+    function renderProducts() {
+
+        const container =
+            document.getElementById("products");
+
+        const empty =
+            document.getElementById("emptyMessage");
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+
+        const filtered =
+            products.filter(product => {
+
+                const categoryMatch =
+                    currentCategory === "All" ||
+                    product.category === currentCategory;
+
+                const searchMatch =
+                    product.name
+                        .toLowerCase()
+                        .includes(search);
+
+                return categoryMatch && searchMatch;
+
+            });
+
+
+        container.innerHTML = "";
+
+
+        if (filtered.length === 0) {
+
+            empty.style.display = "block";
+
+            return;
+
+        }
+
+
+        empty.style.display = "none";
+
+
+        filtered.forEach(product => {
+
+            container.innerHTML += `
+
+                <div class="product-card">
+
+                    <div class="product-image">
+
+                        ${product.icon}
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3 class="product-name">
+
+                            ${product.name}
+
+                        </h3>
+
+                        <div class="product-category">
+
+                            ${product.category}
+
+                        </div>
+
+                        <div class="price">
+
+                            ₹${product.price}
+
+                        </div>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart(${product.id})"
+                        >
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /* =================================
+       CATEGORY
+    ================================= */
+
+    function filterCategory(category, button) {
+
+        currentCategory = category;
+
+
+        document
+            .querySelectorAll(".category-btn")
+            .forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+
+        button.classList.add("active");
+
+
+        renderProducts();
+
+    }
+
+
+    /* =================================
+       SEARCH
+    ================================= */
+
+    document
+        .getElementById("searchInput")
+        .addEventListener(
+            "input",
+            renderProducts
+        );
+
+
+    /* =================================
+       ADD CART
+    ================================= */
+
+    function addToCart(id) {
+
+        const product =
+            products.find(
+                item => item.id === id
+            );
+
+
+        cart.push(product);
+
+
+        updateCart();
+
+
+        alert(
+            product.name +
+            " added to cart"
+        );
+
+    }
+
+
+    /* =================================
+       UPDATE CART
+    ================================= */
+
+    function updateCart() {
+
+        const container =
+            document.getElementById("cartItems");
+
+        const count =
+            document.getElementById("cartCount");
+
+        const total =
+            document.getElementById("cartTotal");
+
+
+        count.textContent = cart.length;
+
+
+        container.innerHTML = "";
+
+
+        let cartTotal = 0;
+
+
+        cart.forEach((item, index) => {
+
+            cartTotal += item.price;
+
+
+            container.innerHTML += `
+
+                <div class="cart-item">
+
+                    <div>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <br>
+
+                        ₹${item.price}
+
+                    </div>
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeFromCart(${index})"
+                    >
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+
+        total.textContent = cartTotal;
+
+    }
+
+
+    /* =================================
+       REMOVE CART
+    ================================= */
+
+    function removeFromCart(index) {
+
+        cart.splice(index, 1);
+
+        updateCart();
+
+    }
+
+
+    /* =================================
+       OPEN CART
+    ================================= */
+
+    function openCart() {
+
+        document
+            .getElementById("cartPanel")
+            .classList.add("open");
+
+    }
+
+
+    /* =================================
+       CLOSE CART
+    ================================= */
+
+    function closeCart() {
+
+        document
+            .getElementById("cartPanel")
+            .classList.remove("open");
+
+    }
+
+
+    /* =================================
+       CHECKOUT
+    ================================= */
+
+    function checkout() {
+
+        if (cart.length === 0) {
+
+            alert("Your cart is empty.");
+
+            return;
+
+        }
+
+
+        alert(
+            "Checkout system will be connected next."
+        );
+
+    }
+
+
+    /* =================================
+       START
+    ================================= */
+
+    renderProducts();
+
+</script>
+
+
+</body>
+
+</html>

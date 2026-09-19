@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Players - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px 15px;
+}
+
+.header-inner {
+    max-width: 750px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 750px;
+    margin: auto;
+    padding: 20px 15px 50px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px rgba(15,23,42,.05);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.team-info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 13px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 13px;
+}
+
+.team-info strong {
+    font-size: 16px;
+}
+
+.player-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #f8fafc;
+}
+
+.player-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.player-number {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.player-title {
+    font-weight: bold;
+}
+
+.player-subtitle {
+    color: #64748b;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #0f172a;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.save-btn {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
+    background: #16a34a;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.message {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.loading {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+}
+
+.id-box {
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #64748b;
+    word-break: break-all;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <h1>🏏 CrickMate</h1>
+
+        <p>Team Players</p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <a
+        id="backBtn"
+        href="#"
+        class="back"
+    >
+        ← Back to Team
+    </a>
+
+
+    <!-- TEAM INFORMATION -->
+
+    <div class="card">
+
+        <h2>
+            👥 Team Players
+        </h2>
+
+        <div
+            id="teamInfo"
+            class="team-info"
+        >
+            Loading team...
+        </div>
+
+        <div
+            id="teamIdBox"
+            class="id-box"
+        >
+            Team ID: Loading...
+        </div>
+
+    </div>
+
+
+    <!-- PLAYERS FORM -->
+
+    <div class="card">
+
+        <h2>
+            🏏 Player List
+        </h2>
+
+        <p style="font-size:13px;color:#64748b;">
+            Add up to 15 players for this team.
+        </p>
+
+
+        <form id="playersForm">
+
+            <div id="playersContainer">
+
+                <div class="loading">
+                    Loading players...
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="saveBtn"
+                class="save-btn"
+            >
+                💾 Save Players
+            </button>
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </div>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/player.js"
+></script>
+
+
+</body>
+
+</html>

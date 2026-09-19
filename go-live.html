@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Go Live - CrickMate</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.08);
+        }
+
+        .live-badge {
+            display: inline-block;
+            padding: 6px 13px;
+            border-radius: 20px;
+            background: #64748b;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .live-badge.live {
+            background: #dc2626;
+        }
+
+        .team {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .vs {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .scores {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .score-box {
+            width: 45%;
+        }
+
+        .score {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .overs {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .tournament {
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .watch-live {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            background: #dc2626;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .watch-live:active {
+            transform: scale(.98);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 35px 10px;
+            color: #64748b;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px 15px;
+            color: #64748b;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>🏏 CrickMate</h1>
+
+    <p>
+        Watch live cricket matches
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        ⏳ Finding match...
+    </div>
+
+
+    <!-- MATCH CARD -->
+
+    <div
+        id="matchCard"
+        class="card"
+        style="display:none;"
+    >
+
+        <div
+            id="matchStatus"
+            class="live-badge"
+        >
+            🏏 MATCH
+        </div>
+
+
+        <div
+            id="teamA"
+            class="team"
+        >
+            Team A
+        </div>
+
+
+        <div class="vs">
+            VS
+        </div>
+
+
+        <div
+            id="teamB"
+            class="team"
+        >
+            Team B
+        </div>
+
+
+        <!-- SCORES -->
+
+        <div class="scores">
+
+
+            <div class="score-box">
+
+                <div
+                    id="scoreA"
+                    class="score"
+                >
+                    0/0
+                </div>
+
+                <div
+                    id="oversA"
+                    class="overs"
+                >
+                </div>
+
+            </div>
+
+
+            <div class="score-box">
+
+                <div
+                    id="scoreB"
+                    class="score"
+                >
+                    0/0
+                </div>
+
+                <div
+                    id="oversB"
+                    class="overs"
+                >
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- TOURNAMENT -->
+
+        <div
+            id="tournamentName"
+            class="tournament"
+        >
+        </div>
+
+
+        <!-- WATCH LIVE -->
+
+        <button
+            id="watchLiveBtn"
+            class="watch-live"
+        >
+            🔴 WATCH LIVE
+        </button>
+
+
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="empty"
+        class="card empty"
+        style="display:none;"
+    >
+        🏏 No match found.
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error"
+        style="display:none;"
+    >
+    </div>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/go-live.js"
+></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>CrickMate - Your Cricket Companion</title>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="./images/icon-192.png"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #202124;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+    width: 100%;
+    max-width: 720px;
+    min-height: 100vh;
+    margin: auto;
+    background: #ffffff;
+    position: relative;
+    padding-bottom: 75px;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.top-header {
+    height: 78px;
+    background: #ed1b2f;
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* hamburger */
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+
+/* logo */
+
+.header-logo {
+    width: 43px;
+    height: 43px;
+
+    object-fit: contain;
+
+    margin-left: 12px;
+}
+
+
+/* premium */
+
+.pro-btn {
+    margin-left: 10px;
+
+    border: 2px solid white;
+    border-radius: 6px;
+
+    background: transparent;
+    color: white;
+
+    padding: 8px 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* header icons */
+
+.header-actions {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.header-icon {
+    border: 0;
+    background: transparent;
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    padding: 3px;
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.tabs {
+    height: 65px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    background: white;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.tab {
+    border: 0;
+    background: white;
+
+    font-size: 18px;
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+.tab.active {
+    font-weight: bold;
+}
+
+.tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 4px;
+
+    background: #ed1b2f;
+}
+
+
+/* =====================================================
+   FOLLOW USER
+===================================================== */
+
+.follow-section {
+    padding: 25px 18px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    border-bottom: 10px solid #f3f3f3;
+}
+
+.profile-wrap {
+    width: 90px;
+
+    text-align: center;
+
+    flex-shrink: 0;
+}
+
+.profile-circle {
+    width: 70px;
+    height: 70px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 1px solid #ddd;
+
+    position: relative;
+}
+
+.profile-circle img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.plus {
+    position: absolute;
+
+    right: -2px;
+    bottom: -2px;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #18a99b;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+
+    border: 3px solid white;
+}
+
+.you-text {
+    margin-top: 7px;
+
+    font-size: 17px;
+}
+
+.follow-message {
+    flex: 1;
+
+    border: 2px solid #e5e5e5;
+
+    border-radius: 30px 30px 5px 30px;
+
+    padding: 20px;
+
+    color: #777;
+
+    font-size: 17px;
+    line-height: 1.35;
+
+    position: relative;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section {
+    padding: 20px 18px;
+
+    border-bottom: 10px solid #f4f4f4;
+}
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+.section-title h2 {
+    margin: 0;
+
+    font-size: 25px;
+
+    font-weight: normal;
+}
+
+.section-link {
+    color: #1b9c93;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   FOLLOW CARD
+===================================================== */
+
+.follow-card {
+    min-height: 390px;
+
+    background: #ed1b2f;
+
+    border-radius: 5px;
+
+    color: white;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 25px 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.cricket-decoration {
+    position: absolute;
+
+    font-size: 70px;
+
+    opacity: .14;
+}
+
+.dec1 {
+    top: 20px;
+    left: 10px;
+}
+
+.dec2 {
+    top: 170px;
+    right: -5px;
+}
+
+.dec3 {
+    bottom: 15px;
+    left: 20px;
+}
+
+.player-stack {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 30px;
+}
+
+.player-stack img {
+    width: 88px;
+    height: 88px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 4px solid white;
+
+    margin-left: -15px;
+
+    background: #ddd;
+}
+
+.player-stack img:first-child {
+    margin-left: 0;
+}
+
+.player-stack img:nth-child(2) {
+    width: 112px;
+    height: 112px;
+
+    z-index: 2;
+}
+
+.follow-card-text {
+    font-size: 20px;
+
+    line-height: 1.35;
+
+    max-width: 570px;
+
+    margin-bottom: 25px;
+}
+
+.follow-btn {
+    border: 0;
+
+    background: #18a99b;
+
+    color: white;
+
+    border-radius: 5px;
+
+    padding: 14px 30px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+
+/* =====================================================
+   TOURNAMENT BANNER
+===================================================== */
+
+.tournament-banner {
+    min-height: 180px;
+
+    background: linear-gradient(
+        90deg,
+        #f7f7f7,
+        #ffffff,
+        #f7f7f7
+    );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 25px 15px;
+}
+
+.tournament-banner h3 {
+    margin: 0 0 10px;
+
+    font-size: 21px;
+
+    font-weight: normal;
+}
+
+.tournament-banner h3 span {
+    color: #ed1b2f;
+
+    font-weight: bold;
+}
+
+.tournament-banner p {
+    margin: 0 0 15px;
+
+    font-size: 16px;
+}
+
+.create-now {
+    display: inline-block;
+
+    background: #18a99b;
+
+    color: white;
+
+    padding: 10px 25px;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   POPULAR CRICKETERS
+===================================================== */
+
+.players-scroll {
+    display: flex;
+
+    gap: 12px;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+
+    scrollbar-width: none;
+}
+
+.players-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.player-card {
+    min-width: 145px;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    background: white;
+
+    border: 1px solid #e5e5e5;
+}
+
+.player-card img {
+    width: 145px;
+    height: 145px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.player-card div {
+    padding: 10px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   LIVE MATCHES
+===================================================== */
+
+.match-card {
+    border: 1px solid #e2e2e2;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    display: block;
+}
+
+.match-card:hover {
+    background: #fafafa;
+}
+
+.live-label {
+    color: #ed1b2f;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.match-teams {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-weight: bold;
+
+    font-size: 16px;
+}
+
+.match-score {
+    margin-top: 8px;
+
+    color: #555;
+}
+
+
+/* =====================================================
+   MORE DRAWER
+===================================================== */
+
+.drawer-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    z-index: 500;
+
+    display: none;
+}
+
+.drawer-overlay.show {
+    display: block;
+}
+
+.drawer {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: min(330px, 85%);
+
+    height: 100%;
+
+    background: white;
+
+    overflow-y: auto;
+
+    box-shadow: 3px 0 15px rgba(0,0,0,.2);
+}
+
+.drawer-header {
+    height: 80px;
+
+    background: #ed1b2f;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 15px 20px;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.drawer a,
+.drawer button {
+    width: 100%;
+
+    display: block;
+
+    padding: 16px 20px;
+
+    background: white;
+
+    border: 0;
+    border-bottom: 1px solid #eee;
+
+    color: #202124;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.drawer a:hover,
+.drawer button:hover {
+    background: #f5f5f5;
+}
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+.language-box {
+    display: none;
+
+    padding: 20px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+}
+
+.language-box select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: 720px;
+
+    height: 72px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    z-index: 200;
+
+    box-shadow: 0 -2px 8px rgba(0,0,0,.08);
+}
+
+.bottom-nav a {
+    color: #222;
+
+    text-decoration: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.bottom-icon {
+    font-size: 25px;
+}
+
+.bottom-nav a.active {
+    color: #ed1b2f;
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width: 721px) {
+
+    body {
+        background: #e9e9e9;
+    }
+
+    .app {
+        box-shadow: 0 0 20px rgba(0,0,0,.08);
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width: 420px) {
+
+    .top-header {
+        padding: 0 10px;
+    }
+
+    .header-logo {
+        width: 38px;
+        height: 38px;
+        margin-left: 5px;
+    }
+
+    .pro-btn {
+        font-size: 13px;
+        padding: 7px 8px;
+    }
+
+    .header-actions {
+        gap: 7px;
+    }
+
+    .header-icon {
+        font-size: 23px;
+    }
+
+    .follow-message {
+        font-size: 15px;
+        padding: 15px;
+    }
+
+    .follow-card {
+        min-height: 350px;
+    }
+
+    .player-stack img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .player-stack img:nth-child(2) {
+        width: 95px;
+        height: 95px;
+    }
+
+    .section-title h2 {
+        font-size: 22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="top-header">
+
+
+    <button
+        type="button"
+        id="menuButton"
+        class="menu-btn"
+        aria-label="Menu"
+    >
+        ☰
+    </button>
+
+
+    <img
+        src="./images/logo.png"
+        alt="CrickMate"
+        class="header-logo"
+    >
+
+
+    <button
+        type="button"
+        id="proButton"
+        class="pro-btn"
+    >
+        PRO @ ₹199
+    </button>
+
+
+    <div class="header-actions">
+
+
+        <button
+            type="button"
+            id="searchButton"
+            class="header-icon"
+        >
+            🔍
+        </button>
+
+
+        <button
+            type="button"
+            id="messageButton"
+            class="header-icon"
+        >
+            💬
+        </button>
+
+
+        <button
+            type="button"
+            id="notificationButton"
+            class="header-icon"
+        >
+            🔔
+        </button>
+
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     TABS
+===================================================== -->
+
+<div class="tabs">
+
+    <button
+        type="button"
+        class="tab active"
+        id="forYouTab"
+    >
+        For you
+    </button>
+
+    <button
+        type="button"
+        class="tab"
+        id="clubTab"
+    >
+        <span style="color:#159f96;">
+            PRO
+        </span>
+        Club
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     FOLLOW PROFILE
+===================================================== -->
+
+<section class="follow-section">
+
+
+    <div class="profile-wrap">
+
+        <div class="profile-circle">
+
+            <img
+                src="./images/default-player.png"
+                alt="You"
+            >
+
+            <span class="plus">
+                +
+            </span>
+
+        </div>
+
+        <div class="you-text">
+            You
+        </div>
+
+    </div>
+
+
+    <div class="follow-message">
+
+        Follow your favourite cricketers
+        to see their updates here.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MATCHES NEAR YOU
+===================================================== -->
+
+<section class="section">
+
+
+    <div class="section-title">
+
+        <h2>
+            Matches near you
+        </h2>
+
+    </div>
+
+
+    <div class="follow-card">
+
+
+        <div class="cricket-decoration dec1">
+            🏏
+        </div>
+
+        <div class="cricket-decoration dec2">
+            🏏
+        </div>
+
+        <div class="cricket-decoration dec3">
+            🏏
+        </div>
+
+
+        <div class="player-stack">
+
+            <img
+                src="./images/default-player.png"
+                alt="Player"
+            >
+
+            <img
+                src="./images/default-player.png"
+                alt="Player"
+            >
+
+            <img
+                src="./images/default-player.png"
+                alt="Player"
+            >
+
+        </div>
+
+
+        <div class="follow-card-text">
+
+            Follow friends, teams and
+            tournaments to see their
+            matches here.
+
+        </div>
+
+
+        <button
+            type="button"
+            id="startFollowingButton"
+            class="follow-btn"
+        >
+            Start following
+        </button>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOURNAMENT PROMOTION
+===================================================== -->
+
+<section class="tournament-banner">
+
+    <div>
+
+        <h3>
+            Make your tournament stand out.
+            <br>
+
+            Create your
+            <span>tournament poster</span>
+            for free.
+        </h3>
+
+        <a
+            href="./start-match.html"
+            class="create-now"
+        >
+            Create now
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     POPULAR CRICKETERS
+===================================================== -->
+
+<section class="section">
+
+
+    <div class="section-title">
+
+        <h2>
+            Popular cricketers
+        </h2>
+
+        <a
+            href="./my-cricket.html"
+            class="section-link"
+        >
+            Follow friends
+        </a>
+
+    </div>
+
+
+    <div class="players-scroll">
+
+
+        <div class="player-card">
+
+            <img
+                src="./images/default-player.png"
+                alt="Cricketer"
+            >
+
+            <div>
+                CrickMate Player
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <img
+                src="./images/default-player.png"
+                alt="Cricketer"
+            >
+
+            <div>
+                Local Star
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <img
+                src="./images/default-player.png"
+                alt="Cricketer"
+            >
+
+            <div>
+                Rising Player
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <img
+                src="./images/default-player.png"
+                alt="Cricketer"
+            >
+
+            <div>
+                CrickMate Pro
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LIVE MATCHES
+===================================================== -->
+
+<section class="section">
+
+
+    <div class="section-title">
+
+        <h2>
+            Live cricket
+        </h2>
+
+        <a
+            href="./live-scores.html"
+            class="section-link"
+        >
+            View all
+        </a>
+
+    </div>
+
+
+    <a
+        href="./live-scores.html"
+        class="match-card"
+    >
+
+        <div class="live-label">
+            🔴 LIVE
+        </div>
+
+        <div class="match-teams">
+
+            <span>
+                Live Matches
+            </span>
+
+            <span>
+                →
+            </span>
+
+        </div>
+
+        <div class="match-score">
+            Watch live scores and ball-by-ball updates
+        </div>
+
+    </a>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+    <a
+        href="./index.html"
+        class="active"
+    >
+
+        <span class="bottom-icon">
+            ⌂
+        </span>
+
+        <span>
+            Home
+        </span>
+
+    </a>
+
+
+    <a
+        href="./live-scores.html"
+    >
+
+        <span class="bottom-icon">
+            🔭
+        </span>
+
+        <span>
+            Looking
+        </span>
+
+    </a>
+
+
+    <a
+        href="./my-cricket.html"
+    >
+
+        <span class="bottom-icon">
+            🏏
+        </span>
+
+        <span>
+            My Cricket
+        </span>
+
+    </a>
+
+
+    <a
+        href="./clubs.html"
+    >
+
+        <span class="bottom-icon">
+            👥
+        </span>
+
+        <span>
+            Community
+        </span>
+
+    </a>
+
+
+    <a
+        href="./store.html"
+    >
+
+        <span class="bottom-icon">
+            🛍️
+        </span>
+
+        <span>
+            Store
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+<!-- =====================================================
+     DRAWER
+===================================================== -->
+
+<div
+    id="drawerOverlay"
+    class="drawer-overlay"
+>
+
+
+    <div class="drawer">
+
+
+        <div class="drawer-header">
+
+<a href="./login.html">
+    🔐 Login
+</a>
+
+        </div>
+
+
+
+<!-- ================= PRO ================= -->
+
+<a href="./pro.html" class="drawer-pro">
+    ⭐ PRO @ ₹199
+    <small>(not Autopay)</small>
+</a>
+      
+
+        <a href="./live-scores.html">
+            🔴 Live Scores
+        </a>
+
+        <a href="./tournaments.html">
+            🏆 Tournaments / Series
+        </a>
+
+        <a href="./start-match.html">
+            🏏 Start a Match
+        </a>
+
+        <a href="./go-live.html">
+            📡 Go Live
+        </a>
+
+        <a href="./my-cricket.html">
+            👤 My Cricket
+        </a>
+
+        <a href="./my-performance.html">
+            📊 My Performance
+        </a>
+
+        <a href="./leaderboard.html">
+            🏆 Leaderboard
+        </a>
+
+        <a href="./awards.html">
+            🥇 CrickMate Awards
+        </a>
+
+        <a href="./associations.html">
+            🏢 Associations
+        </a>
+
+        <a href="./clubs.html">
+            🏏 Clubs
+        </a>
+
+        <a href="./results.html">
+            📋 Results
+        </a>
+
+        <a href="./points.html">
+            📊 Points Table
+        </a>
+
+        <a href="./contact.html">
+    📞 Contact
+</a>
+
+<button
+    type="button"
+    id="shareAppButton"
+>
+    📤 Share the App
+</button>
+
+<button
+    type="button"
+    id="rateAppButton"
+>
+    ⭐ Rate Us
+</button>
+
+<a href="./app-code.html">
+    🔑 App Code
+</a>
+
+
+<!-- ================= MORE ================= -->
+
+<button
+    type="button"
+    id="moreButton"
+>
+    ➕ More
+</button>
+
+
+<!-- ================= MORE CONTENT ================= -->
+
+<div
+    id="moreMenu"
+    style="display:none;"
+>
+
+    <a href="./whats-new.html">
+        📰 What's New
+    </a>
+
+    <button
+        type="button"
+        id="languageButton"
+    >
+        🌐 Change Language
+    </button>
+
+    <a
+        href="https://instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        📸 Instagram
+    </a>
+
+    <a
+        href="https://youtube.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        ▶️ YouTube
+    </a>
+
+    <a
+        href="https://facebook.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        📘 Facebook
+    </a>
+
+    <a
+        href="https://x.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        𝕏 X
+    </a>
+
+    <a href="./about.html">
+        ℹ️ About Us
+    </a>
+
+    <a href="./blog.html">
+        📝 Blog
+    </a>
+
+    <a href="./help.html">
+        ❓ Help / FAQs
+    </a>
+
+    <a href="./privacy.html">
+        🔒 Privacy Policy
+    </a>
+
+    <a href="./terms.html">
+        📜 Terms of Service
+    </a>
+
+    <a href="./paid-service-terms.html">
+        💳 Paid Service Terms
+    </a>
+
+</div>
+
+
+<!-- ================= LANGUAGE ================= -->
+
+<div
+    id="languageBox"
+    class="language-box"
+>
+
+    <select id="languageSelect">
+
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="as">অসমীয়া</option>
+        <option value="bn">বাংলা</option>
+        <option value="kn">ಕನ್ನಡ</option>
+
+    </select>
+
+</div>
+
+
+<button
+    type="button"
+    id="closeMenuButton"
+>
+    ✕ Close Menu
+</button>
+
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/index.js"
+></script>
+
+
+</body>
+
+</html>
+      

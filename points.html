@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CrickMate - Points Table</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 15px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.title h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.title p {
+    margin: 6px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.loading {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #0f172a;
+    color: white;
+}
+
+th {
+    padding: 12px 8px;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+td.team-name {
+    text-align: left;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.position {
+    font-weight: bold;
+}
+
+.points {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.nrr {
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   TOP TEAMS
+===================================================== */
+
+.rank-1 {
+    background: #fef9c3;
+}
+
+.rank-2 {
+    background: #f1f5f9;
+}
+
+.rank-3 {
+    background: #ffedd5;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:600px) {
+
+    .container {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    th,
+    td {
+        padding: 10px 6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>🏏 CrickMate</h1>
+
+    <p>
+        Tournament Points Table
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- BACK -->
+
+    <a
+        id="backBtn"
+        href="#"
+        class="back"
+    >
+        ← Back
+    </a>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        🔄 Loading points table...
+    </div>
+
+
+    <!-- POINTS PAGE -->
+
+    <div
+        id="pointsPage"
+        style="display:none;"
+    >
+
+
+        <div class="card">
+
+
+            <!-- TITLE -->
+
+            <div class="title">
+
+                <h2>
+                    🏆 Points Table
+                </h2>
+
+                <p id="tournamentName">
+                    Loading tournament...
+                </p>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Pos
+                            </th>
+
+                            <th>
+                                Team
+                            </th>
+
+                            <th>
+                                P
+                            </th>
+
+                            <th>
+                                W
+                            </th>
+
+                            <th>
+                                L
+                            </th>
+
+                            <th>
+                                NR
+                            </th>
+
+                            <th>
+                                NRR
+                            </th>
+
+                            <th>
+                                Pts
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="pointsTableBody"
+                    >
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="emptyMessage"
+                class="empty"
+                style="display:none;"
+            >
+                No points table data available.
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/points.js"
+></script>
+
+
+</body>
+
+</html>

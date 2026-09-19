@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Create Match - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px 15px;
+}
+
+.header-inner {
+    max-width: 700px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px 15px 40px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 3px 12px rgba(15,23,42,.05);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #0f172a;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 13px;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 10px;
+    background: #16a34a;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.message {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.success {
+    display: block;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.error {
+    display: block;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.loading {
+    color: #64748b;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <h1>🏏 CrickMate</h1>
+
+        <p>Create Match</p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <a
+        id="backBtn"
+        href="#"
+        class="back"
+    >
+        ← Tournament Centre
+    </a>
+
+
+    <div class="card">
+
+        <h2>🏏 Create New Match</h2>
+
+        <div
+            id="tournamentInfo"
+            class="info"
+        >
+            Loading tournament...
+        </div>
+
+
+        <form id="matchForm">
+
+
+            <div class="form-group">
+
+                <label>
+                    Match Number
+                </label>
+
+                <input
+                    type="number"
+                    id="matchNumber"
+                    min="1"
+                    placeholder="Example: 1"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Team 1
+                </label>
+
+                <select
+                    id="team1"
+                    required
+                >
+
+                    <option value="">
+                        Loading teams...
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Team 2
+                </label>
+
+                <select
+                    id="team2"
+                    required
+                >
+
+                    <option value="">
+                        Loading teams...
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Match Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="matchDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Match Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="matchTime"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Overs
+                    </label>
+
+                    <input
+                        type="number"
+                        id="overs"
+                        min="1"
+                        value="20"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Venue
+                    </label>
+
+                    <input
+                        type="text"
+                        id="venue"
+                        placeholder="Example: Padmabil"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="createBtn"
+            >
+                🏏 Create Match
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+    </div>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="./js/create-match.js"
+></script>
+
+
+</body>
+
+</html>

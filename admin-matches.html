@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Admin Matches - CrickMate</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 18px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 180px 1fr;
+    gap: 12px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.stat {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+}
+
+th {
+    background: #0f172a;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+.match-number {
+    font-weight: bold;
+}
+
+.teams {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.team {
+    font-weight: bold;
+}
+
+.vs {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.score {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status-scheduled {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.status-live {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-completed {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-other {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.winner {
+    color: #166534;
+    font-weight: bold;
+}
+
+.result {
+    max-width: 220px;
+}
+
+.action-box {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 120px;
+}
+
+.action-btn {
+    display: block;
+    padding: 8px 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.commentary-btn {
+    background: #0f172a;
+}
+
+.live-btn {
+    background: #16a34a;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+.message {
+    display: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.message.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+@media (max-width: 700px) {
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <h1>🏏 CrickMate</h1>
+
+    <p>Admin Match Management</p>
+
+</header>
+
+
+<div class="container">
+
+    <a
+        href="admin.html"
+        class="back"
+    >
+        ← Back to Admin
+    </a>
+
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="card">
+
+        <div class="controls">
+
+            <select id="tournamentSelect">
+
+                <option value="">
+                    Select Tournament
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="Scheduled">
+                    Scheduled
+                </option>
+
+                <option value="Live">
+                    Live
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Search team, venue, result..."
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="card">
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div
+                    id="totalMatches"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Total Matches
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="scheduledMatches"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Scheduled
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="liveMatches"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Live
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="completedMatches"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Completed
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    id="resultsCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Results
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MATCHES -->
+
+    <div class="card">
+
+        <h2>
+            🏏 Matches
+        </h2>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Match
+                        </th>
+
+                        <th>
+                            Teams
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Venue
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Winner
+                        </th>
+
+                        <th>
+                            Result
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="matchesTable">
+
+                    <tr>
+
+                        <td
+                            colspan="10"
+                            class="empty"
+                        >
+                            🔄 Loading matches...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    type="module"
+    src="./js/admin-matches.js"
+></script>
+
+</body>
+
+</html>

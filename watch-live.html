@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CrickMate - Watch Live</title>
+
+<meta
+    name="theme-color"
+    content="#020617"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #020617;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #0f172a;
+    padding: 18px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+header p {
+    margin: 6px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 15px;
+}
+
+.card {
+    background: #0f172a;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   MATCH SELECT
+===================================================== */
+
+select {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 15px;
+    background: white;
+    color: #0f172a;
+}
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+.video-box {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+}
+
+#liveVideo {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    background: #000;
+
+    display: block;
+}
+
+
+/* =====================================================
+   OFFLINE
+===================================================== */
+
+#offline {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #94a3b8;
+
+    font-size: 17px;
+
+    text-align: center;
+
+    z-index: 2;
+
+    background: #000;
+}
+
+
+/* =====================================================
+   LIVE BADGE
+===================================================== */
+
+.live-badge {
+
+    display: none;
+
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    background: #dc2626;
+
+    color: white;
+
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    z-index: 30;
+}
+
+.live-badge.show {
+    display: block;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+
+    text-align: center;
+
+    padding: 13px 5px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+.status.live {
+
+    color: #22c55e;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   VIDEO SCORE OVERLAY
+===================================================== */
+
+.video-score-overlay {
+
+    position: absolute;
+
+    left: 10px;
+
+    right: 10px;
+
+    bottom: 42px;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    display: none;
+}
+
+.video-score-overlay.show {
+    display: block;
+}
+
+
+/* =====================================================
+   MATCH TITLE
+===================================================== */
+
+.overlay-live-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 6px;
+}
+
+.overlay-match-title {
+
+    background: rgba(2, 6, 23, 0.90);
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    max-width: 75%;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.overlay-live {
+
+    background: #dc2626;
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TEAM SCORES
+===================================================== */
+
+.overlay-main {
+
+    display: flex;
+
+    align-items: stretch;
+
+    justify-content: space-between;
+
+    gap: 7px;
+}
+
+.overlay-team {
+
+    flex: 1;
+
+    min-width: 0;
+
+    background: rgba(2, 6, 23, 0.90);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    border-radius: 8px;
+
+    padding: 7px 9px;
+
+    backdrop-filter: blur(5px);
+}
+
+.overlay-team-name {
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.overlay-score {
+
+    margin-top: 2px;
+
+    font-size: 21px;
+
+    line-height: 1;
+
+    font-weight: 800;
+}
+
+.overlay-overs {
+
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   BATTERS + BOWLER
+===================================================== */
+
+.overlay-details {
+
+    margin-top: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+.overlay-batters {
+
+    flex: 1;
+
+    min-width: 0;
+
+    background: rgba(2, 6, 23, 0.90);
+
+    border-radius: 7px;
+
+    padding: 6px 8px;
+
+    backdrop-filter: blur(5px);
+}
+
+.overlay-bowler {
+
+    flex: 1;
+
+    min-width: 0;
+
+    background: rgba(2, 6, 23, 0.90);
+
+    border-radius: 7px;
+
+    padding: 6px 8px;
+
+    backdrop-filter: blur(5px);
+}
+
+.overlay-label {
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    margin-bottom: 3px;
+
+    font-weight: bold;
+}
+
+.overlay-batter-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 5px;
+
+    font-size: 10px;
+
+    line-height: 16px;
+}
+
+.overlay-batter-name {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #e2e8f0;
+}
+
+.overlay-batter-score {
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.overlay-bowler-name {
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.overlay-bowler-stats {
+
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   MATCH INFO
+===================================================== */
+
+.info-box {
+
+    display: none;
+
+    background: #1e293b;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    color: #cbd5e1;
+}
+
+.info-box.show {
+    display: block;
+}
+
+
+/* =====================================================
+   HIDDEN SCOREBOARD
+===================================================== */
+
+.scoreboard {
+    display: none !important;
+}
+
+
+/* =====================================================
+   BACK LINK
+===================================================== */
+
+.back {
+
+    display: block;
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: #94a3b8;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 19px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 13px;
+    }
+
+    .video-box {
+        border-radius: 12px;
+    }
+
+    .video-score-overlay {
+
+        left: 7px;
+
+        right: 7px;
+
+        bottom: 38px;
+    }
+
+    .overlay-team {
+
+        padding: 5px 6px;
+
+        border-radius: 6px;
+    }
+
+    .overlay-team-name {
+
+        font-size: 8px;
+    }
+
+    .overlay-score {
+
+        font-size: 17px;
+    }
+
+    .overlay-overs {
+
+        font-size: 8px;
+    }
+
+    .overlay-details {
+
+        gap: 4px;
+    }
+
+    .overlay-batters,
+    .overlay-bowler {
+
+        padding: 5px 6px;
+
+        border-radius: 6px;
+    }
+
+    .overlay-label {
+
+        font-size: 7px;
+    }
+
+    .overlay-batter-row {
+
+        font-size: 8px;
+
+        line-height: 13px;
+    }
+
+    .overlay-bowler-name {
+
+        font-size: 8px;
+    }
+
+    .overlay-bowler-stats {
+
+        font-size: 7px;
+    }
+
+    .overlay-match-title {
+
+        font-size: 8px;
+
+        padding: 4px 6px;
+    }
+
+    .overlay-live {
+
+        font-size: 7px;
+
+        padding: 3px 5px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .overlay-score {
+        font-size: 15px;
+    }
+
+    .overlay-batter-row {
+        font-size: 7px;
+    }
+
+    .overlay-bowler-name {
+        font-size: 7px;
+    }
+
+    .overlay-bowler-stats {
+        font-size: 6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <h1>
+        🎥 CrickMate Watch Live
+    </h1>
+
+    <p>
+        Watch cricket matches live
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     MATCH SELECT
+===================================================== -->
+
+<div class="card">
+
+    <h2>
+        🏏 Select Match
+    </h2>
+
+    <select id="matchSelect">
+
+        <option value="">
+            ⏳ Loading matches...
+        </option>
+
+    </select>
+
+
+    <div
+        id="matchInfo"
+        class="info-box"
+    ></div>
+
+</div>
+
+
+<!-- =====================================================
+     LIVE VIDEO
+===================================================== -->
+
+<div class="card">
+
+    <div class="video-box">
+
+
+        <!-- VIDEO -->
+
+        <video
+            id="liveVideo"
+            autoplay
+            playsinline
+            muted
+            controls
+        ></video>
+
+
+        <!-- OFFLINE -->
+
+        <div id="offline">
+
+            📺 Live stream is offline
+
+        </div>
+
+
+        <!-- LIVE BADGE -->
+
+        <div
+            id="liveBadge"
+            class="live-badge"
+        >
+
+            🔴 LIVE
+
+        </div>
+
+
+        <!-- =================================================
+             LIVE SCORE OVER VIDEO
+        ================================================== -->
+
+        <div
+            id="videoScoreOverlay"
+            class="video-score-overlay"
+        >
+
+
+            <!-- MATCH TITLE -->
+
+            <div class="overlay-live-title">
+
+                <div
+                    id="overlayMatchTitle"
+                    class="overlay-match-title"
+                >
+                    Team A VS Team B
+                </div>
+
+                <div class="overlay-live">
+                    🔴 LIVE
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TEAM SCORES
+            ================================================== -->
+
+            <div class="overlay-main">
+
+
+                <!-- TEAM A -->
+
+                <div class="overlay-team">
+
+                    <div
+                        id="scoreTeamA"
+                        class="overlay-team-name"
+                    >
+                        Team A
+                    </div>
+
+                    <div
+                        id="scoreA"
+                        class="overlay-score"
+                    >
+                        0/0
+                    </div>
+
+                    <div
+                        id="oversA"
+                        class="overlay-overs"
+                    >
+                        0.0 Overs
+                    </div>
+
+                </div>
+
+
+                <!-- TEAM B -->
+
+                <div class="overlay-team">
+
+                    <div
+                        id="scoreTeamB"
+                        class="overlay-team-name"
+                    >
+                        Team B
+                    </div>
+
+                    <div
+                        id="scoreB"
+                        class="overlay-score"
+                    >
+                        0/0
+                    </div>
+
+                    <div
+                        id="oversB"
+                        class="overlay-overs"
+                    >
+                        0.0 Overs
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 BATTERS + BOWLER
+            ================================================== -->
+
+            <div class="overlay-details">
+
+
+                <!-- BATTERS -->
+
+                <div class="overlay-batters">
+
+                    <div class="overlay-label">
+                        🏏 BATTERS
+                    </div>
+
+
+                    <div class="overlay-batter-row">
+
+                        <span
+                            id="batter1Name"
+                            class="overlay-batter-name"
+                        >
+                            Batter 1
+                        </span>
+
+                        <span
+                            id="batter1Score"
+                            class="overlay-batter-score"
+                        >
+                            0*
+                        </span>
+
+                    </div>
+
+
+                    <div class="overlay-batter-row">
+
+                        <span
+                            id="batter2Name"
+                            class="overlay-batter-name"
+                        >
+                            Batter 2
+                        </span>
+
+                        <span
+                            id="batter2Score"
+                            class="overlay-batter-score"
+                        >
+                            0*
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOWLER -->
+
+                <div class="overlay-bowler">
+
+                    <div class="overlay-label">
+                        🎯 BOWLER
+                    </div>
+
+                    <div
+                        id="bowlerName"
+                        class="overlay-bowler-name"
+                    >
+                        Bowler
+                    </div>
+
+                    <div
+                        id="bowlerStats"
+                        class="overlay-bowler-stats"
+                    >
+                        0.0 Overs • 0 Runs • 0 Wickets
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         STATUS
+    ================================================== -->
+
+    <div
+        id="status"
+        class="status"
+    >
+        Select a match to watch live
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HIDDEN SCORE DATA
+     JS compatibility ke liye
+===================================================== -->
+
+<div
+    id="scoreboard"
+    class="scoreboard"
+>
+
+    <div id="scoreMatchTitle">
+        Team A VS Team B
+    </div>
+
+    <div id="scoreMatchDate">
+        Live Match
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+
+<a
+    href="./admin-live.html"
+    class="back"
+>
+    🎥 Admin / Scorer → Go Live
+</a>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script type="module" src="./js/watch-live.js"></script>
+
+
+</body>
+
+</html>

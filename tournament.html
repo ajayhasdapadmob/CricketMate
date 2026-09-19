@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Tournament Centre - CrickMate</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background:
+        #f1f5f9;
+
+    color:
+        #0f172a;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    background:
+        #0f172a;
+
+    color:
+        white;
+
+    padding:
+        16px;
+
+}
+
+
+.header-inner {
+
+    max-width:
+        1100px;
+
+    margin:
+        auto;
+
+}
+
+
+.header-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.back {
+
+    color:
+        white;
+
+    text-decoration:
+        none;
+
+    font-size:
+        22px;
+
+}
+
+
+.logo {
+
+    font-size:
+        21px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.subtitle {
+
+    margin-top:
+        5px;
+
+    color:
+        #94a3b8;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    max-width:
+        1100px;
+
+    margin:
+        auto;
+
+    padding:
+        20px 15px 50px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        18px;
+
+    padding:
+        22px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(15,23,42,0.05);
+
+}
+
+
+.hero-top {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+}
+
+
+.status {
+
+    display:
+        inline-block;
+
+    padding:
+        6px 10px;
+
+    border-radius:
+        20px;
+
+    background:
+        #dcfce7;
+
+    color:
+        #166534;
+
+    font-size:
+        11px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.hero h1 {
+
+    margin:
+        12px 0 5px;
+
+    font-size:
+        28px;
+
+}
+
+
+.description {
+
+    color:
+        #64748b;
+
+    font-size:
+        14px;
+
+}
+
+
+.badges {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    margin-top:
+        18px;
+
+}
+
+
+.badge {
+
+    background:
+        #f1f5f9;
+
+    padding:
+        8px 11px;
+
+    border-radius:
+        8px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        12px;
+
+    margin-top:
+        18px;
+
+}
+
+
+.stat {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        14px;
+
+    padding:
+        16px;
+
+}
+
+
+.stat-icon {
+
+    font-size:
+        22px;
+
+}
+
+
+.stat-label {
+
+    margin-top:
+        8px;
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+}
+
+
+.stat-value {
+
+    margin-top:
+        4px;
+
+    font-size:
+        21px;
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+
+    overflow-x:
+        auto;
+
+    margin-top:
+        22px;
+
+    padding-bottom:
+        3px;
+
+}
+
+
+.nav a {
+
+    white-space:
+        nowrap;
+
+    text-decoration:
+        none;
+
+    color:
+        #334155;
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    padding:
+        11px 14px;
+
+    border-radius:
+        9px;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.nav a:hover {
+
+    background:
+        #e2e8f0;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section {
+
+    margin-top:
+        22px;
+
+}
+
+
+.section-title {
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.section-title h2 {
+
+    margin:
+        0;
+
+    font-size:
+        20px;
+
+}
+
+
+.section-title p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        #64748b;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        15px;
+
+    overflow:
+        hidden;
+
+}
+
+
+.info-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    padding:
+        14px 16px;
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+}
+
+
+.info-row:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+.info-label {
+
+    color:
+        #64748b;
+
+    font-size:
+        13px;
+
+}
+
+
+.info-value {
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+    text-align:
+        right;
+
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.actions {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        12px;
+
+}
+
+
+.action {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        14px;
+
+    padding:
+        18px;
+
+    text-decoration:
+        none;
+
+    color:
+        #0f172a;
+
+}
+
+
+.action:hover {
+
+    border-color:
+        #94a3b8;
+
+}
+
+
+.action-icon {
+
+    font-size:
+        25px;
+
+}
+
+
+.action-title {
+
+    margin-top:
+        10px;
+
+    font-weight:
+        bold;
+
+    font-size:
+        14px;
+
+}
+
+
+.action-text {
+
+    margin-top:
+        5px;
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+}
+
+
+/* =====================================================
+   MATCHES
+===================================================== */
+
+.matches {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        15px;
+
+    padding:
+        25px;
+
+    text-align:
+        center;
+
+    color:
+        #64748b;
+
+}
+
+
+/* =====================================================
+   LOADING / ERROR
+===================================================== */
+
+.loading {
+
+    text-align:
+        center;
+
+    padding:
+        50px;
+
+    color:
+        #64748b;
+
+}
+
+
+.error {
+
+    background:
+        #fee2e2;
+
+    color:
+        #991b1b;
+
+    padding:
+        20px;
+
+    border-radius:
+        12px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    text-align:
+        center;
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+    padding:
+        30px 10px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width: 800px
+) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .actions {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            23px;
+
+    }
+
+}
+
+
+@media (
+    max-width: 500px
+) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .actions {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .info-row {
+
+        flex-direction:
+            column;
+
+        gap:
+            5px;
+
+    }
+
+
+    .info-value {
+
+        text-align:
+            left;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="header-top">
+
+            <a
+                id="headerBack"
+                class="back"
+                href="./dashboard.html"
+            >
+                ←
+            </a>
+
+            <div>
+
+                <div class="logo">
+                    🏏 CrickMate
+                </div>
+
+                <div class="subtitle">
+                    Tournament Centre
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+    id="loading"
+    class="loading"
+>
+
+    Loading tournament...
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<div
+    id="content"
+    style="display:none;"
+>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-top">
+
+        <div>
+
+            <span
+                id="status"
+                class="status"
+            >
+                🔴 LIVE
+            </span>
+
+            <h1
+                id="tournamentName"
+            >
+                Tournament
+            </h1>
+
+            <div
+                id="description"
+                class="description"
+            >
+                Tournament information
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="badges"
+        class="badges"
+    >
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <div class="stat-label">
+            Teams
+        </div>
+
+        <div
+            id="teamsCount"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🏏
+        </div>
+
+        <div class="stat-label">
+            Matches
+        </div>
+
+        <div
+            id="matchesCount"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🔴
+        </div>
+
+        <div class="stat-label">
+            Live
+        </div>
+
+        <div
+            id="liveCount"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            📅
+        </div>
+
+        <div class="stat-label">
+            Start Date
+        </div>
+
+        <div
+            id="startDateStat"
+            class="stat-value"
+            style="font-size:14px;"
+        >
+            -
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="nav">
+
+    <a
+        id="overviewLink"
+        href="#"
+    >
+        🏠 Overview
+    </a>
+
+    <a
+        id="teamsLink"
+        href="#"
+    >
+        👥 Teams
+    </a>
+
+    <a
+        id="matchesLink"
+        href="#"
+    >
+        🏏 Matches
+    </a>
+
+    <a
+        id="pointsLink"
+        href="#"
+    >
+        📊 Points
+    </a>
+
+    <a
+        id="statsLink"
+        href="#"
+    >
+        ⭐ Player Stats
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     TOURNAMENT INFORMATION
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Tournament Overview
+        </h2>
+
+        <p>
+            Complete tournament information
+        </p>
+
+    </div>
+
+
+    <div class="info">
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Format
+            </div>
+
+            <div
+                id="infoFormat"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Match Type
+            </div>
+
+            <div
+                id="infoMatchType"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Overs
+            </div>
+
+            <div
+                id="infoOvers"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Teams
+            </div>
+
+            <div
+                id="infoTeams"
+                class="info-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Start Date
+            </div>
+
+            <div
+                id="infoStartDate"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                End Date
+            </div>
+
+            <div
+                id="infoEndDate"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Venue
+            </div>
+
+            <div
+                id="infoVenue"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                City
+            </div>
+
+            <div
+                id="infoCity"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                Organizer
+            </div>
+
+            <div
+                id="infoOrganizer"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUICK ACTIONS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>
+            ⚡ Quick Actions
+        </h2>
+
+    </div>
+
+
+    <div class="actions">
+
+
+        <a
+            id="addTeamLink"
+            class="action"
+            href="#"
+        >
+
+            <div class="action-icon">
+                👥
+            </div>
+
+            <div class="action-title">
+                Add Team
+            </div>
+
+            <div class="action-text">
+                Add tournament teams
+            </div>
+
+        </a>
+
+
+        <a
+            id="createMatchLink"
+            class="action"
+            href="#"
+        >
+
+            <div class="action-icon">
+                🏏
+            </div>
+
+            <div class="action-title">
+                Create Match
+            </div>
+
+            <div class="action-text">
+                Schedule a match
+            </div>
+
+        </a>
+
+
+        <a
+            id="liveLink"
+            class="action"
+            href="#"
+        >
+
+            <div class="action-icon">
+                🔴
+            </div>
+
+            <div class="action-title">
+                Live Scoring
+            </div>
+
+            <div class="action-text">
+                Start live scoring
+            </div>
+
+        </a>
+
+
+        <a
+            id="quickPointsLink"
+            class="action"
+            href="#"
+        >
+
+            <div class="action-icon">
+                📊
+            </div>
+
+            <div class="action-title">
+                Points Table
+            </div>
+
+            <div class="action-text">
+                View standings
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RECENT MATCHES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Recent Matches
+        </h2>
+
+        <p>
+            Latest tournament matches
+        </p>
+
+    </div>
+
+
+    <div
+        id="matchesBox"
+        class="matches"
+    >
+
+        🏏
+
+        <h3>
+            No matches yet
+        </h3>
+
+        <p>
+            Matches will appear here after they are created.
+        </p>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<footer class="footer">
+
+    🏏 CrickMate — Your Cricket Companion
+
+</footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/tournament.js"
+></script>
+
+
+</body>
+
+</html>

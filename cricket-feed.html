@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>CrickMate - Cricket Feed</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.feed-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.feed-subtitle {
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* =====================================================
+   FEED
+===================================================== */
+
+.feed-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.feed-type {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.feed-time {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.feed-item h3 {
+    margin: 10px 0 6px;
+    font-size: 16px;
+}
+
+.feed-item p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   SCORE
+===================================================== */
+
+.score-box {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.team-name {
+    font-weight: bold;
+}
+
+.team-score {
+    font-weight: bold;
+}
+
+.result {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 7px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.refresh-btn {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 13px;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.refresh-btn:active {
+    transform: scale(.98);
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px;
+    border-radius: 9px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.error.show {
+    display: block;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:500px) {
+
+    .container {
+        padding: 12px;
+    }
+
+    .feed-item {
+        padding: 14px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <h1>🏏 CrickMate</h1>
+
+    <p>
+        Cricket Feed & Latest Updates
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- =================================================
+         BACK
+    ================================================== -->
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Back
+    </a>
+
+
+    <!-- =================================================
+         TITLE
+    ================================================== -->
+
+    <div class="card">
+
+        <div class="feed-title">
+            📰 Cricket Feed
+        </div>
+
+        <div class="feed-subtitle">
+            Latest matches, results and tournament updates
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ERROR
+    ================================================== -->
+
+    <div
+        id="error"
+        class="error"
+    ></div>
+
+
+    <!-- =================================================
+         REFRESH
+    ================================================== -->
+
+    <button
+        type="button"
+        class="refresh-btn"
+        onclick="loadFeed()"
+    >
+        🔄 Refresh Feed
+    </button>
+
+
+    <!-- =================================================
+         LOADING
+    ================================================== -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        🔄 Loading cricket feed...
+    </div>
+
+
+    <!-- =================================================
+         FEED CONTAINER
+    ================================================== -->
+
+    <div id="feed"></div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FIREBASE + FEED JS
+===================================================== -->
+
+<script
+    type="module"
+    src="./js/cricket-feed.js"
+></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Team Details - CrickMate</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background:
+        #f1f5f9;
+
+    color:
+        #0f172a;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    background:
+        #0f172a;
+
+    color:
+        white;
+
+    padding:
+        16px;
+
+}
+
+
+.header-inner {
+
+    max-width:
+        1000px;
+
+    margin:
+        auto;
+
+}
+
+
+.header h1 {
+
+    margin:
+        0;
+
+    font-size:
+        21px;
+
+}
+
+
+.header p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        #94a3b8;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    max-width:
+        900px;
+
+    margin:
+        auto;
+
+    padding:
+        20px 15px 50px;
+
+}
+
+
+/* =====================================================
+   TOP BACK
+===================================================== */
+
+.top-back {
+
+    display:
+        inline-block;
+
+    margin-bottom:
+        18px;
+
+    color:
+        #0f172a;
+
+    text-decoration:
+        none;
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =====================================================
+   TEAM PROFILE
+===================================================== */
+
+.team-profile {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        18px;
+
+    padding:
+        25px;
+
+    text-align:
+        center;
+
+    margin-bottom:
+        18px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.06);
+
+}
+
+
+.team-logo-large {
+
+    width:
+        100px;
+
+    height:
+        100px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius:
+        20px;
+
+    background:
+        #e2e8f0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    font-size:
+        55px;
+
+}
+
+
+.team-logo-large img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+.team-profile h1 {
+
+    margin:
+        8px 0;
+
+    font-size:
+        27px;
+
+}
+
+
+.team-id {
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+    word-break:
+        break-all;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section-card {
+
+    background:
+        white;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        16px;
+
+    padding:
+        20px;
+
+    margin-bottom:
+        18px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.04);
+
+}
+
+
+.section-card h2 {
+
+    margin:
+        0 0 18px;
+
+    font-size:
+        19px;
+
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.section-title-row h2 {
+
+    margin:
+        0;
+
+}
+
+
+.player-count {
+
+    background:
+        #e2e8f0;
+
+    color:
+        #334155;
+
+    padding:
+        6px 10px;
+
+    border-radius:
+        20px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
+
+.details-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        12px;
+
+}
+
+
+.detail-item {
+
+    padding:
+        14px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        12px;
+
+    background:
+        #f8fafc;
+
+}
+
+
+.detail-label {
+
+    display:
+        block;
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+
+}
+
+
+.detail-item strong {
+
+    font-size:
+        14px;
+
+    word-break:
+        break-word;
+
+}
+
+
+/* =====================================================
+   PLAYERS
+===================================================== */
+
+.players-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        10px;
+
+}
+
+
+.player-card {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    padding:
+        12px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        12px;
+
+    background:
+        #f8fafc;
+
+}
+
+
+.player-number {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    min-width:
+        38px;
+
+    border-radius:
+        50%;
+
+    background:
+        #0f172a;
+
+    color:
+        white;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-weight:
+        bold;
+
+    font-size:
+        13px;
+
+}
+
+
+.player-name {
+
+    font-weight:
+        bold;
+
+    font-size:
+        14px;
+
+    word-break:
+        break-word;
+
+}
+
+
+.player-role {
+
+    margin-top:
+        3px;
+
+    color:
+        #64748b;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =====================================================
+   NO PLAYERS
+===================================================== */
+
+.no-players {
+
+    text-align:
+        center;
+
+    padding:
+        30px 15px;
+
+    color:
+        #64748b;
+
+}
+
+
+.no-players h3 {
+
+    margin:
+        10px 0 5px;
+
+    color:
+        #334155;
+
+}
+
+
+.no-players p {
+
+    margin:
+        0;
+
+    font-size:
+        13px;
+
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-button {
+
+    border:
+        0;
+
+    border-radius:
+        10px;
+
+    background:
+        #0f172a;
+
+    color:
+        white;
+
+    padding:
+        12px 20px;
+
+    font-size:
+        14px;
+
+    font-weight:
+        bold;
+
+    cursor:
+        pointer;
+
+}
+
+
+.main-back {
+
+    display:
+        block;
+
+    margin:
+        20px auto 0;
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box {
+
+    background:
+        #fee2e2;
+
+    border:
+        1px solid #fecaca;
+
+    color:
+        #991b1b;
+
+    padding:
+        30px 20px;
+
+    border-radius:
+        16px;
+
+    text-align:
+        center;
+
+}
+
+
+.error-icon {
+
+    font-size:
+        45px;
+
+}
+
+
+.error-box h2 {
+
+    margin:
+        10px 0;
+
+}
+
+
+.error-box p {
+
+    font-size:
+        14px;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+
+    background:
+        white;
+
+    border-radius:
+        16px;
+
+    padding:
+        40px 20px;
+
+    text-align:
+        center;
+
+    color:
+        #64748b;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width: 650px
+) {
+
+    .details-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .players-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .team-profile h1 {
+
+        font-size:
+            23px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <h1>
+            🏏 CrickMate
+        </h1>
+
+        <p>
+            Team Details
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="container">
+
+
+    <a
+        id="topBack"
+        href="#"
+        class="top-back"
+    >
+        ← Teams
+    </a>
+
+
+    <div
+        id="teamContainer"
+    >
+
+        <div class="loading">
+
+            Loading team...
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="./js/team.js"
+></script>
+
+
+<script>
+
+document
+    .getElementById("topBack")
+    ?.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const tournamentId =
+                params.get("tournamentId") ||
+                localStorage.getItem(
+                    "tournamentId"
+                );
+
+
+            if (tournamentId) {
+
+                window.location.href =
+                    `teams.html?tournamentId=${encodeURIComponent(tournamentId)}`;
+
+            }
+            else {
+
+                window.location.href =
+                    "teams.html";
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
